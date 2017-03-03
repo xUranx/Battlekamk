@@ -56,13 +56,14 @@ POSSIBILITY OF SUCH DAMAGE.
 class S1D13700
 {
   public:
+    char *buf;
     S1D13700(void);
     void writeCommand(unsigned char command);
     void writeData(unsigned char data);
     unsigned char readData(void);
     void initLCD(void);
     char *tex;
-    void writeText(char &text);
+    void writeText(char *text);
     void setPixel(unsigned int x,unsigned int y, unsigned char state);
     void setCursorAddress(unsigned int address);
     void textGoTo(unsigned char x, unsigned char y);

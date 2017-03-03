@@ -243,13 +243,15 @@ void S1D13700::hardReset(void)
 	delay(50);
 }
 
-void S1D13700::writeText(char &text)
+void S1D13700::writeText(char *text)
 {
-  char tax = new char tex(text);
+  //int Size = sizeof(text);
+  //buf = new char[Size];
+  
 	writeCommand(S1D13700_MWRITE);
-	while(*tex)
+	while(*text)
 	{
-		writeData(*tex++);
+		writeData(*text++);
 	}
 }
 /*Set a single pixel. We have to read a byte in, modify the appropriate bit
@@ -394,7 +396,7 @@ void S1D13700::drawLine(int x0, int y0, int x1, int y1)
 /*
 	A simple rectangle algorithm
 */
-void S1D13700::drawBox(int x0, int y0, int x1, int y1,int visible=1)
+void S1D13700::drawBox(int x0, int y0, int x1, int y1,int visible)
 {
 	int p;
 	int tempVal;
