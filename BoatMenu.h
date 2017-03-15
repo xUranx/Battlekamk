@@ -1,10 +1,10 @@
 #pragma once
 #include "menu.h"
 
-class BoatMenu : 
+class BoatMenu : menu
 {
 public:
-	BoatMenu();
+	BoatMenu(Joystick &stick, S1D13700 &LCD);
 	~BoatMenu();
 private:
 };

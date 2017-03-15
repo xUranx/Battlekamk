@@ -4,37 +4,53 @@
 #include "menu.h"
 #include "Joystick.h"
 
+enum MENUSTATE 
+{
+ MAIN,PVP,AI,BOAT
+};
 
-
-//#define DEBUG true
 
 Joystick _stick;
 S1D13700 LCD;
+int next = 0;
 
 void setup() {
-  // put your setup code here, to run once:
 	Serial.begin(9600);
     LCD.initLCD();
     LCD.clearText();
     LCD.clearGraphic();
-	
-//    pinMode(buttonPin1, INPUT);
-//    pinMode(buttonPin2, INPUT);
-//    pinMode(buttonPin3, INPUT);
-    //LCD.textGoTo(10,10);
-    //char buf[] = "Setboats";
-    //LCD.writeText(buf);
-    
 }
+
+void menuChoice(menu &main);
 
 void loop() 
 {
-   //menu kakka(_stick,LCD);
-   //for(;;){}
-	LCD.textGoTo(10,10);
-	char buf[] = "Test";
-	LCD.writeText(buf);
-	for (;;){}
+
+	menu main(_stick, LCD);
+	next = main.startMenu();
+	for (;;)
+	{
+	menuChoice(main);
+	}
+	
   
+}
+void menuChoice(menu &main)
+{
+	switch (next)
+	{
+	case 'PVP':
+		//next =
+		break;
+	case 'AI':
+		//next =
+		break;
+	case 'BOAT':
+		//next =
+		break;
+	case 'MAIN':
+		next = main.startMenu();
+		break;
+	}
 }
 
