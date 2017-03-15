@@ -1,6 +1,6 @@
 #include "PrintHex.h"
 #include "S1D13700.h"
-
+#include "Arduino.h"
 
 PrintHex::PrintHex()
 {
@@ -11,12 +11,11 @@ PrintHex::~PrintHex()
 {
 }
 
-void PrintHex::Print(int *tex)
+void PrintHex::Print(uint8_t *tex)
 {
 	x = 0;
 	y = 0;
 	int ins = 1;
-	int *siz = tex + 4;
 	while(*tex != 0xFFF)
 	{
 		

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Arduino.h"
 using namespace std;
 class PrintHex
 {
@@ -10,7 +10,7 @@ public:
 	PrintHex();
 	~PrintHex();
 
-	void Print(int *tex);
+	void Print(uint8_t *tex);
 
 };
 
