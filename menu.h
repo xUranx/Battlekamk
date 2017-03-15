@@ -24,11 +24,10 @@ private:
   int x1;
   int y1;
   S1D13700 _handler;
- /* bool _button1;
-  bool _button2;
-  bool _button3;*/
   void printTXT();// Päätä miten tehdään
-  
+  int UP;
+  int DOWN;
+  int MIDDLE;
   Joystick *_stick;
 
   

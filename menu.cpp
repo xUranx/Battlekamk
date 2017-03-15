@@ -16,7 +16,6 @@ menu::menu(Joystick &stick,S1D13700 &LCD)
 }
 menu::~menu()
 {
-
 }
 void menu::
 moveBox(MENUENUM STATE)
@@ -53,8 +52,9 @@ startMenu()
 delay(100);// vähentää hektisyyttä
 
 do{
+   int stickButton = 0;
    int where =_stick->ReadY();
-   if (where == 1)
+   if (where == 1 && stickButton == 0)
       {
         button = 2;
 #if (DEBUG == 1)    
@@ -62,7 +62,7 @@ Serial.println("Button is registered: " );
 #endif
         break;
       }
-   if (where == -1)
+   else if (where == -1 && stickButton == 0)
       {
         button = 1;
 #if (DEBUG == 1)    
@@ -70,32 +70,40 @@ Serial.println("Button is registered: " );
 #endif
         break;
       }
+      else if(stickButton != 0)
+      {
+          button = 3;
+      }
   }
   while(button == 0);
-char buf1[] = "moving box 22";
   switch (button)
   {
   case 1:
-  //go down
-  moveBox(getBoxPos(MENUENUM::DOWN));
-  
-  /* _handler.textGoTo(1,18);
-   _handler.writeText(buf1);*/
-  break;
+    moveBox(getBoxPos(MENUENUM::DOWN));
+    break;
   
   case 2:
-  //go up
-  moveBox(getBoxPos(MENUENUM::UP));
- 
- /* _handler.textGoTo(1,25);
-  _handler.writeText(buf1);*/
-  break;
+    moveBox(getBoxPos(MENUENUM::UP));
+    break;
   
   case 3:
-  // confirm choose;
-  break;
+  {
+    if (y0 == 15)
+    {
+    return 1;  
+    }
+    else if (y0 == 90)
+    {
+    return 2;
+    }
+    else (y0 == 165)
+    {
+    return 3;
+    }
   }
-} while(true);
+  break;
+  } while(true);
+}
 }
 
 void menu::
