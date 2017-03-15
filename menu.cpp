@@ -45,11 +45,11 @@ int menu::
 startMenu()
 {
   this->printTXT();
-  do
-  {
-    int button = 0;
+do
+{
+	int button = 0;
 
-delay(100);// vähentää hektisyyttä
+	delay(100);// vähentää hektisyyttä
 
 do{
    int stickButton = 0;
@@ -79,32 +79,35 @@ Serial.println("Button is registered: " );
   switch (button)
   {
   case 1:
-    moveBox(getBoxPos(MENUENUM::DOWN));
-    break;
-  
+	  moveBox(getBoxPos(MENUENUM::DOWN));
+	  break;
+
   case 2:
-    moveBox(getBoxPos(MENUENUM::UP));
-    break;
-  
+	  moveBox(getBoxPos(MENUENUM::UP));
+	  break;
+
   case 3:
   {
-    if (y0 == 15)
-    {
-    return 1;  
-    }
-    else if (y0 == 90)
-    {
-    return 2;
-    }
-    else (y0 == 165)
-    {
-    return 3;
-    }
+	  if (y0 == 15)
+	  {
+		  return 1;
+	  }
+	  else if (y0 == 90)
+	  {
+		  return 2;
+	  }
+	  else
+	  {
+		  return 3;
+	  }
   }
   break;
-  } while(true);
+  }
+
+
+} while(true);
 }
-}
+
 
 void menu::
 setBoxPos(int _x0,int _y0, int _x1,int _y1)
