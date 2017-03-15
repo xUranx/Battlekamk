@@ -56,14 +56,13 @@ POSSIBILITY OF SUCH DAMAGE.
 class S1D13700
 {
   public:
-    char *buf;
     S1D13700(void);
     void writeCommand(unsigned char command);
     void writeData(unsigned char data);
     unsigned char readData(void);
     void initLCD(void);
-    char *tex;
-    void writeText(char *text);
+    
+    void writeText(char * text);
     void setPixel(unsigned int x,unsigned int y, unsigned char state);
     void setCursorAddress(unsigned int address);
     void textGoTo(unsigned char x, unsigned char y);
@@ -71,9 +70,10 @@ class S1D13700
     void clearText(void);
     void clearGraphic(void);
     
-    void drawBox(int x0, int y0, int x1, int y1, int visible=1);
+    void drawBox(int x0, int y0, int x1, int y1,int visible = 1);
     void drawCircle(int x0, int y0, int radius);
     void drawLine(int x0, int y0, int x1, int y1);
+   // void clearBox(int x0, int y0, int x1, int y1); // poistaa boxin
 	
 	struct pin_type {
 		unsigned char d0;

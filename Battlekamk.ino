@@ -13,10 +13,11 @@ S1D13700 LCD;
 
 void setup() {
   // put your setup code here, to run once:
-   
+	Serial.begin(9600);
     LCD.initLCD();
     LCD.clearText();
     LCD.clearGraphic();
+	
 //    pinMode(buttonPin1, INPUT);
 //    pinMode(buttonPin2, INPUT);
 //    pinMode(buttonPin3, INPUT);
@@ -28,8 +29,12 @@ void setup() {
 
 void loop() 
 {
-   menu kakka(_stick,LCD);
-   for(;;){}
+   //menu kakka(_stick,LCD);
+   //for(;;){}
+	LCD.textGoTo(10,10);
+	char buf[] = "Test";
+	LCD.writeText(buf);
+	for (;;){}
   
 }
 

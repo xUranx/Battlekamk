@@ -1,5 +1,5 @@
 #include "menu.h"
-#include "Defines.h"
+
 #include "Joystick.h"
 typedef MENUENUM _m;
 
@@ -11,8 +11,8 @@ menu::menu(Joystick &stick,S1D13700 &LCD)
   y1=75;
   _handler = LCD;
   _stick = &stick;
-  this->printTXT();
- // this->startMenu();
+  
+  this->startMenu();
 }
 menu::~menu()
 {
@@ -42,31 +42,23 @@ moveBox(MENUENUM STATE)
   }
   
 }
-void menu::
+int menu::
 startMenu()
 {
- this->printTXT();
- this->moveBox(_m::UP);
-int button;
-
+  this->printTXT();
   do
   {
-    int where =_stick->ReadY();
- /*   if (analogRead(buttonPin1) == HIGH)
-      {
-        button = 3;
-#if (DEBUG == 1)    
-serial.println("Button is registered: " button);
-#endif
-        break;
-      }
-*/
+    int button = 0;
+
+delay(100);// vähentää hektisyyttä
+
 do{
+   int where =_stick->ReadY();
    if (where == 1)
       {
         button = 2;
 #if (DEBUG == 1)    
-serial.println("Button is registered: " button);
+Serial.println("Button is registered: " );
 #endif
         break;
       }
@@ -74,23 +66,31 @@ serial.println("Button is registered: " button);
       {
         button = 1;
 #if (DEBUG == 1)    
-serial.println("Button is registered: " button);
+Serial.println("Button is registered: " );
 #endif
         break;
       }
   }
-  while(where == 0);
-
+  while(button == 0);
+char buf1[] = "moving box 22";
   switch (button)
   {
   case 1:
   //go down
-  getBoxPos(MENUENUM::DOWN);
+  moveBox(getBoxPos(MENUENUM::DOWN));
+  
+  /* _handler.textGoTo(1,18);
+   _handler.writeText(buf1);*/
   break;
+  
   case 2:
   //go up
-  getBoxPos(MENUENUM::UP);
+  moveBox(getBoxPos(MENUENUM::UP));
+ 
+ /* _handler.textGoTo(1,25);
+  _handler.writeText(buf1);*/
   break;
+  
   case 3:
   // confirm choose;
   break;
@@ -125,13 +125,16 @@ getBoxPos(MENUENUM _where)
 }
 void menu::printTXT()
 {
- // moveBox(MENUENUM::UP);
-  _handler.textGoTo(43,70);
-  _handler.writeText("Set Boats");
-  _handler.textGoTo(43,140);
-  _handler.writeText("Play against AI");
-  _handler.textGoTo(43,210);
-  _handler.writeText("Play PvP");
+  moveBox(MENUENUM::UP);
+  char buf[] = "Play PvP";
+  _handler.textGoTo(13,5);
+  _handler.writeText(buf);
+  char buf2[] = "Play agains AI";
+  _handler.textGoTo(13,16);
+  _handler.writeText(buf2);
+  char buf3[] = "Set boats";
+  _handler.textGoTo(13,25);
+  _handler.writeText(buf3);
   
   
 }

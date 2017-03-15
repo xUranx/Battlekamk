@@ -1,7 +1,7 @@
 #ifndef menu_h
 #define menu_h
 #include "S1D13700.h"
-
+#include "Defines.h"
 class Joystick;
 
 enum class MENUENUM
@@ -14,8 +14,8 @@ class menu
 public:
   menu(Joystick &stick,S1D13700 &LCD);
   ~menu();
+  int startMenu();
 private:
-  void startMenu();
   void moveBox(MENUENUM STATE);
   void setBoxPos(int _x0,int _y0, int _x1,int _y1);
   MENUENUM getBoxPos(MENUENUM _where);

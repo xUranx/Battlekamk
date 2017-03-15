@@ -45,8 +45,8 @@ POSSIBILITY OF SUCH DAMAGE.
 
 /*Constructor, set pin markers to their default values */
 S1D13700::S1D13700(void)
-{ 
-    this->pins.d0 = 22;
+{
+		this->pins.d0 = 22;
     this->pins.d1 = 23;
     this->pins.d2 = 24;
     this->pins.d3 = 25;
@@ -59,9 +59,6 @@ S1D13700::S1D13700(void)
     this->pins.rd = 32;
     this->pins.cs = 33;
     this->pins.rst = 34;
-    
-    
-		
 }
 
 /* This function is specified inline for speed reasons*/
@@ -243,11 +240,8 @@ void S1D13700::hardReset(void)
 	delay(50);
 }
 
-void S1D13700::writeText(char *text)
+void S1D13700::writeText(char * text)
 {
-  //int Size = sizeof(text);
-  //buf = new char[Size];
-  
 	writeCommand(S1D13700_MWRITE);
 	while(*text)
 	{
@@ -256,7 +250,7 @@ void S1D13700::writeText(char *text)
 }
 /*Set a single pixel. We have to read a byte in, modify the appropriate bit
 	then write is back out */
-void S1D13700::setPixel(unsigned int x,unsigned int y, unsigned char state =1 )
+void S1D13700::setPixel(unsigned int x,unsigned int y, unsigned char state = 1)
 {
 	unsigned char tmp = 0;
 	unsigned int address = S1D13700_GRAPHICSTART + (40 * y) + (x/8); 
@@ -427,6 +421,37 @@ void S1D13700::drawBox(int x0, int y0, int x1, int y1,int visible)
 	}
 
 }
+/* void S1D13700::
+ clearBox(int x0, int y0, int x1, int y1)
+ {
+    int p;
+  int tempVal;
+  
+  if (x0 > x1)
+  {
+    tempVal = x0;
+    x0 = x1;
+    x1 = tempVal;
+  }
+  
+  if (y0 > y1)
+  {
+    tempVal = y0;
+    y0 = y1;
+    y1 = tempVal;
+  }
+  
+  for (p = x0; p <= x1; p++)
+  {
+    setPixel(p,y0,0);
+    setPixel(p,y1,0);
+  }
+  for (p = y0; p <= y1; p++)
+  {
+    setPixel(x0,p,0);
+    setPixel(x1,p,0);
+  }
+ }*/
 /* 
 	I got this circle algorithm from:
 		http://en.wikipedia.org/wiki/Midpoint_circle_algorithm
