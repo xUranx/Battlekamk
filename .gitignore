@@ -29,6 +29,7 @@ _ReSharper*/
 .vs/
 #Nuget packages folder
 packages/
+#Files
 __vm/Compile.vmps.xml
 __vm/Configuration.Debug.vmps.xml
 __vm/Configuration.Release.vmps.xml
