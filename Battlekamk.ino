@@ -3,6 +3,7 @@
 #include "S1D13700.h"
 #include "menu.h"
 #include "Joystick.h"
+#include "BoatMenu.h"
 
 enum MENUSTATE 
 {
@@ -21,21 +22,26 @@ void setup() {
     LCD.clearGraphic();
 }
 
-void menuChoice(menu &main);
+void menuChoice(menu &main,BoatMenu &bmenu);
 
 void loop() 
 {
+	int** boats = new int*[10];
+	
+	//int *boatPTR = &boats;
 
+	BoatMenu bmenu(_stick, LCD, boats); 
 	menu main(_stick, LCD);
+	_stick.ReadX();
 	next = main.startMenu();
 	for (;;)
 	{
-	menuChoice(main);
+	menuChoice(main,bmenu);
 	}
 	
-  
+	delete[] boats;
 }
-void menuChoice(menu &main)
+void menuChoice(menu &main, BoatMenu &bmenu)
 {
 	switch (next)
 	{

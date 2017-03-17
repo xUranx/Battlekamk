@@ -4,8 +4,12 @@
 class BoatMenu : menu
 {
 public:
-	BoatMenu(Joystick &stick, S1D13700 &LCD);
+	BoatMenu(Joystick &stick, S1D13700 &LCD, int **boards);
+	BoatMenu(Joystick &stick);
+	
+
 	~BoatMenu();
 private:
+	int **_boats = nullptr;
 };
 
