@@ -11,7 +11,7 @@ PrintHex::~PrintHex()
 {
 }
 
-void PrintHex::Print(uint8_t *tex)
+void PrintHex::Print(const uint8_t *tex)
 {
 	x = 0;
 	y = 0;
@@ -42,45 +42,46 @@ void PrintHex::Print(uint8_t *tex)
 			}
 			else
 			{
-				if (*tex - 0x80 >= 0x00)
+				uint8_t thex = *tex;
+				if (thex - 0x80 >= 0x00)
 				{
 					bint[0] = 1;
-					*tex -= 0x80;
+					thex -= 0x80;
 				}
-				if (*tex - 0x40 >= 0x00)
+				if (thex - 0x40 >= 0x00)
 				{
 					bint[1] = 1;
-					*tex -= 0x40;
+					thex -= 0x40;
 				}
-				if (*tex - 0x20 >= 0x00)
+				if (thex - 0x20 >= 0x00)
 				{
 					bint[2] = 1;
-					*tex -= 0x20;
+					thex -= 0x20;
 				}
-				if (*tex - 0x10 >= 0x00)
+				if (thex - 0x10 >= 0x00)
 				{
 					bint[3] = 1;
-					*tex -= 0x10;
+					thex -= 0x10;
 				}
-				if (*tex - 0x08 >= 0x00)
+				if (thex - 0x08 >= 0x00)
 				{
 					bint[4] = 1;
-					*tex -= 0x08;
+					thex -= 0x08;
 				}
-				if (*tex - 0x04 >= 0x00)
+				if (thex - 0x04 >= 0x00)
 				{
 					bint[5] = 1;
-					*tex -= 0x04;
+					thex -= 0x04;
 				}
-				if (*tex - 0x02 >= 0x00)
+				if (thex - 0x02 >= 0x00)
 				{
 					bint[6] = 1;
-					*tex -= 0x02;
+					thex -= 0x02;
 				}
-				if (*tex - 0x01 >= 0x00)
+				if (thex - 0x01 >= 0x00)
 				{
 					bint[7] = 1;
-					*tex -= 0x01;
+					thex -= 0x01;
 				}
 			}
 			S1D13700 GLCD;

@@ -4,7 +4,8 @@
 #include "menu.h"
 #include "Joystick.h"
 #include "BoatMenu.h"
-
+#include "Pictures.h"
+#include "PrintHex.h"
 enum MENUSTATE 
 {
  MAIN,PVP,AI,BOAT
@@ -13,6 +14,7 @@ enum MENUSTATE
 
 Joystick _stick;
 S1D13700 LCD;
+PrintHex hexx;
 int next = 0;
 
 void setup() {
@@ -34,6 +36,7 @@ void loop()
 	menu main(_stick, LCD);
 	_stick.ReadX();
 	next = main.startMenu();
+	hexx.Print(STPIC);
 	for (;;)
 	{
 	menuChoice(main,bmenu);

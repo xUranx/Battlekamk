@@ -10,7 +10,7 @@ public:
 	PrintHex();
 	~PrintHex();
 
-	void Print(uint8_t *tex);
+	void Print(const uint8_t *tex);
 
 };
 
