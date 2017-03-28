@@ -38,26 +38,28 @@ listenRadio(int &x,int &y)
 		
 	
 	radio.stopListening();
-
 	unsigned long started_waiting_at = millis();
+
 	bool timeout = false;
-	while (!timeout)
+	while (!timeout) // sends check 
 	{
 		if (millis() - started_waiting_at > 250)
 			timeout = true;
-
+			radio.write(&data, sizeof(data));
 	}
 }
 void Radio::
-sendRadio(int x, int y)
+sendRadio(const int x, const int y)
 {
 	do
 	{
+	radio.stopListening();
 	data[0] = x;
 	data[1] = y;
 	radio.write(&data, sizeof(data));
 	emptyArray();
-	} while (!getResponse());
+	radio.startListening();
+	} while (!radio.available());
 
 }
 void Radio::
@@ -68,39 +70,5 @@ emptyArray()
 		data[i] = 0;
 	}
 }
-bool Radio::
-getResponse()
-{
-	radio.startListening();
-	radio.write(&data, sizeof(data));
-	if (data[0] == 100)
-	{
-		emptyArray();
-		radio.stopListening();
-		return true;
-	}
-	emptyArray();
-	radio.stopListening();
-	return false;
-}
-void Radio::
-sendResponse()
-{
-		data[0] = 100;
-		radio.write(&data, sizeof(data));
-		emptyArray();
-}
-void Radio::
-GetXY(int &yx)
-{
-	radio.read(&data, sizeof(data));
-	radio.stopListening();
-	digitalWrite(LED, HIGH);
-	delay(100);  // light up the LED for 100ms if it worked.
-	digitalWrite(LED, LOW);
-	
-	yx = data[0];
-	emptyArray();
-	
-}
+
 
