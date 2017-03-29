@@ -84,7 +84,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoatMenu.h" />
     <ClInclude Include="Boxes.h" />
     <ClInclude Include="CustomVector.h" />
     <ClInclude Include="Defines.h">
@@ -94,9 +93,6 @@
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="MainMenu.h" />
-    <ClInclude Include="menu.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
     <ClInclude Include="Pictures.h" />
     <ClInclude Include="PrintHex.h">
       <FileType>CppCode</FileType>
@@ -108,10 +104,9 @@
     <ClInclude Include="__vm\.Battlekamk.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoatMenu.cpp" />
+    <ClCompile Include="Defines.cpp" />
     <ClCompile Include="Joystick.cpp" />
     <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="menu.cpp" />
     <ClCompile Include="PrintHex.cpp" />
     <ClCompile Include="Radio.cpp" />
     <ClCompile Include="S1D13700.cpp" />
