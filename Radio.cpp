@@ -36,7 +36,10 @@ listenRadio(int &x,int &y)
 			emptyArray();
 		} while (!radio.available());	//tekee niin kauan kuin saa järkeviä lukuja
 		
-	
+	Serial.write("got answer: ");
+	Serial.write(x);
+	Serial.write(y);
+
 	radio.stopListening();
 	unsigned long started_waiting_at = millis();
 
@@ -51,6 +54,9 @@ listenRadio(int &x,int &y)
 void Radio::
 sendRadio(const int x, const int y)
 {
+	Serial.write("Sending coords: ");
+	Serial.write(x);
+	Serial.write(y);
 	do
 	{
 	radio.stopListening();
