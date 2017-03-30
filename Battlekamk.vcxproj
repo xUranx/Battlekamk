@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boxes.h" />
+    <ClInclude Include="Coordinates.h" />
     <ClInclude Include="CustomVector.h" />
     <ClInclude Include="Defines.h">
       <FileType>CppCode</FileType>
@@ -105,6 +106,7 @@
     <ClInclude Include="__vm\.Battlekamk.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="Defines.cpp" />
     <ClCompile Include="Joystick.cpp" />
     <ClCompile Include="MainMenu.cpp" />

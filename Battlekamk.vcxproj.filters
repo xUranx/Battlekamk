@@ -51,6 +51,9 @@
     <ClInclude Include="MenuHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Coordinates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Joystick.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MenuHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Coordinates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
