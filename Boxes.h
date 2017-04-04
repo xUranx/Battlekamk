@@ -6,7 +6,7 @@ struct Boxes
 	S1D13700 *_handler= nullptr;
 	CustomVector<CustomVector <int>> vectors;
 	int index = 0;
-	void init(S1D13700 *handler, CustomVector<int> &vecYPOSes, const int RX, const int LX){
+	void init(S1D13700 *handler, CustomVector<int> &vecYPOSes,int RX,int LX){
 		_handler = handler; 
 		int _i = 0;
 		for (int i = 0; i < vecYPOSes.amount/2; i ++)

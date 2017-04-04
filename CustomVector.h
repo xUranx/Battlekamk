@@ -9,11 +9,8 @@ struct CustomVector
 		{
 		y[amount++] = _y;
 		}
-
 		}
 	int amount = 0;
-
-
 	T& operator[](int index) {
 
 		if (index < amount)
@@ -31,6 +28,5 @@ struct CustomVector
 				return y[0];
 			}
 		}
-
 	}
 };
