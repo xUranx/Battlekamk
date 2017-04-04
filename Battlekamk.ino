@@ -6,11 +6,6 @@
 #include "MenuHandler.h"
 #include "Pictures.h"
 #include "PrintHex.h"
-enum MENUSTATE 
-{
- MAIN,PVP,AI,BOAT
-};
-
 
 Joystick _stick;
 S1D13700 LCD;
@@ -32,8 +27,13 @@ void loop()
 	MenuHandler menus(&LCD,&_stick);
 	menus.initClasses();
 	menus.menuLoop();
-
-	
+	/*if (_stick.Button())
+	{
+		LCD.textGoTo(20, 20);
+		char buf[] = { "test" };
+		LCD.writeText(buf);
+		delay(2000);
+	}*/
 	
 }
 

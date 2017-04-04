@@ -248,6 +248,7 @@ void S1D13700::writeText(char * text)
 		writeData(*text++);
 	}
 }
+
 /*Set a single pixel. We have to read a byte in, modify the appropriate bit
 	then write is back out */
 void S1D13700::setPixel(unsigned int x,unsigned int y, unsigned char state = 1)

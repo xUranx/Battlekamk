@@ -1,5 +1,5 @@
 #include "MenuHandler.h"
-
+#include "Coordinates.h"
 
 MenuHandler::MenuHandler(S1D13700 *handler, Joystick *stick) : _handler(handler), _stick(stick)
 {
@@ -18,6 +18,13 @@ initClasses()
 void MenuHandler::
 menuLoop()
 {
+	Coordinates coo(_handler);
+	coo.drawCoord();
+	coo.drawChar();
+	for (;;)
+	{
+
+	}
 	CustomVector <CustomVector<char>> words;
 	CustomVector<char> word1;
 	char array1[4] = "PVP";
