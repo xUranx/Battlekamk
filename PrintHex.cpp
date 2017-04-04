@@ -16,17 +16,19 @@ void PrintHex::Print(const uint8_t *tex, int _x, int _y)
 	y = _y;
 	int ins = 1;
 	int comp = 1;
-	Serial.print(*tex);
-	while (*tex != 0x03)
+	int index = 0;
+	unsigned int tt = (uint8_t*)pgm_read_byte(tex + index);
+	Serial.println(tt);
+	while ((uint8_t*)pgm_read_byte(tex + index) != 0x03)
 	{
-		if (*tex == 0x01)
+		
+		if ((uint8_t*)pgm_read_byte(tex + index) == 0x01)
 		{
-			Serial.print("test");
-			tex++;
-			uint8_t count = *tex;
-			tex++;
-			uint8_t value = *tex;
-			tex++;
+			index++;
+			uint8_t count = (uint8_t*)pgm_read_byte(tex + index);
+			index++;
+			uint8_t value = (uint8_t*)pgm_read_byte(tex + index);
+			index++;
 			if (value == 0x00)
 			{
 				if (ins == 1)
@@ -84,16 +86,16 @@ void PrintHex::Print(const uint8_t *tex, int _x, int _y)
 				}
 			}	
 		}
-		else if(*tex==0x00)
+		else if((uint8_t*)pgm_read_byte(tex + index)==0x00)
 		{
 			
-			tex++;
-			uint8_t count = *tex;
-			tex++;
+			index++;
+			uint8_t count = (uint8_t*)pgm_read_byte(tex + index);
+			index++;
 			for (uint8_t i = 0x00; i < count;i++)
 			{
 				int bint[8] = { 0 };
-				CalcHex(*tex, bint);
+				CalcHex((uint8_t*)pgm_read_byte(tex + index), bint);
 
 				for (int j = 0; j < 8; j++)
 				{
@@ -105,7 +107,7 @@ void PrintHex::Print(const uint8_t *tex, int _x, int _y)
 					x = _x;
 					y++;
 				}
-				tex++;
+				index++;
 				
 			}
 		}
