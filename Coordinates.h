@@ -6,7 +6,10 @@ class S1D13700;
 enum class CursorDir
 {
 	UP,DOWN,LEFT,RIGHT
-
+};
+enum class Shape
+{
+	Circle, Box
 };
 
 class Coordinates
@@ -16,10 +19,11 @@ public:
 	~Coordinates();
 	void drawCoord();
 	void drawChar();
+	void drawShape(Shape shape, int x,int y);
+	void moveCursor(CursorDir _dir);
 private:
 	void setWord(CustomVector<CustomVector<char>> &words,char array[]);
 	CustomVector<int> _index;
-	void moveCursor(CursorDir _dir);
 	S1D13700 *_handler;
 	const int _screenWidht;
 	const int _screenHeight;

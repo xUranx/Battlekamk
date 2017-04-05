@@ -68,24 +68,32 @@ setWord(CustomVector<CustomVector<char>> &words,char array[])
 void Coordinates::
 moveCursor(CursorDir _dir)
 {
-	_handler->drawBox(_currentXSector, _currentYSector, _currentXSector + _XPlus, _currentYSector + _YPlus, 0);// undraw
+	const int minus = 10;
+	_handler->drawBox(_currentXSector, _currentYSector, _currentXSector + (_XPlus-minus), _currentYSector + (_YPlus-minus), 0);// undraw
 	switch (_dir)
 	{
 	case CursorDir::UP:
 	{
-		if (_index[1]<0)
+		Serial.println(_index[1]);
+
+		if (_index[1]>1)
 		{
 		_index[1] -= 1;
-		_currentYSector - _YPlus;
+		_currentYSector -= _YPlus;
+		Serial.println("changed sector");
+
 		}
 	}
 		break;
 	case CursorDir::DOWN:
 	{
-		if (_index[1]>11)
+		Serial.println(_index[1]);
+
+		if (_index[1]<10)
 		{
 			_index[1] += 1;
-			_currentYSector + _YPlus;
+			_currentYSector += _YPlus;
+			Serial.println("changed sector");
 
 		}
 	}
@@ -93,20 +101,27 @@ moveCursor(CursorDir _dir)
 		break;
 	case CursorDir::LEFT:
 	{
-		if (_index[0] < 0)
+		Serial.println(_index[0]);
+
+		if (_index[0] > 1)
 		{
 			_index[0] -= 1;
-			_currentXSector - _XPlus;
+			_currentXSector -= _XPlus;
+			Serial.println("changed sector");
 
 		}
 	}
 		break;
 	case CursorDir::RIGHT:
 	{
-		if (_index[0]>11)
+		Serial.println(_index[0]);
+
+		if (_index[0]<10)
 		{
 			_index[0] += 1;
-			_currentXSector + _XPlus;
+			_currentXSector += _XPlus;
+			Serial.println("changed sector");
+
 		}
 	}
 
@@ -114,7 +129,30 @@ moveCursor(CursorDir _dir)
 	default:
 		break;
 	}
+	Serial.write(" printed box ");
+	Serial.println(_currentXSector);
+	Serial.println(_currentYSector);
 
-	_handler->drawBox(_currentXSector, _currentYSector, _currentXSector + _XPlus, _currentYSector + _YPlus);
 
+	_handler->drawBox(_currentXSector, _currentYSector, _currentXSector + (_XPlus-minus), _currentYSector + (_YPlus-minus));
+
+}
+void Coordinates::
+drawShape(Shape shape, int x, int y)
+{
+	static int baseX = _XPlus + 4;
+	static int baseY = _YPlus + 4;
+	int whereX = x*baseX;
+	int whereY = y*baseY;
+	switch (shape)
+	{
+	case Shape::Circle:
+		_handler->drawCircle(whereX,whereY,10);
+		break;
+	case Shape::Box:
+		_handler->drawBox(whereX,whereY,whereX+_BoxWidht,whereY+_BoxHeight);
+		break;
+	default:
+		break;
+	}
 }
