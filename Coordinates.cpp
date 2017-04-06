@@ -1,6 +1,6 @@
 #include "Coordinates.h"
 #include "S1D13700.h"
-Coordinates::Coordinates(S1D13700 *handler) :_handler(handler), _screenWidht(320), _screenHeight(240), _XPlus(320 / 11), _YPlus(240 / 11), _currentXSector(_XPlus + 4), _currentYSector(_YPlus + 4), _BoxHeight(15), _BoxWidht(20)
+Coordinates::Coordinates(S1D13700 *handler, Joystick *stick) :_handler(handler),_stick(stick), _screenWidht(320), _screenHeight(240), _XPlus(320 / 11), _YPlus(240 / 11), _currentXSector(_XPlus + 4), _currentYSector(_YPlus + 4), _BoxHeight(15), _BoxWidht(20)
 {
 	_index.setValue(1);
 	_index.setValue(1);
@@ -69,7 +69,10 @@ void Coordinates::
 moveCursor(CursorDir _dir)
 {
 	const int minus = 10;
+	if (_dir != CursorDir::_DEFAULT)
+	{
 	_handler->drawBox(_currentXSector, _currentYSector, _currentXSector + (_XPlus-minus), _currentYSector + (_YPlus-minus), 0);// undraw
+	}
 	switch (_dir)
 	{
 	case CursorDir::UP:
@@ -126,8 +129,11 @@ moveCursor(CursorDir _dir)
 	}
 
 		break;
-	default:
+	case CursorDir::_DEFAULT:
+	{
+	}
 		break;
+
 	}
 	Serial.write(" printed box ");
 	Serial.println(_currentXSector);
@@ -140,6 +146,8 @@ moveCursor(CursorDir _dir)
 void Coordinates::
 drawShape(Shape shape, int x, int y)
 {
+	if (x<0 && y && 0)
+	{
 	static int baseX = _XPlus + 4;
 	static int baseY = _YPlus + 4;
 	int whereX = x*baseX;
@@ -155,4 +163,49 @@ drawShape(Shape shape, int x, int y)
 	default:
 		break;
 	}
+	}
 }
+void Coordinates::coordLoop(int &_x, int &_y)
+{
+	this->moveCursor(CursorDir::_DEFAULT);
+
+
+	do
+	{
+	delay(500);
+	int x = 0;
+	int y = 0;
+	do
+	{
+		x = _stick->ReadY();
+		y = _stick->ReadX();
+	/*	if (_stickReadButton())
+		{
+			return;
+		}*/
+	} while (x == 0 && y == 0);
+	if (x == 1)
+	{
+		Serial.println("moved d ");
+		this->moveCursor(CursorDir::DOWN);
+	}
+	else if (x == -1)
+	{
+		Serial.println("moved u ");
+		this->moveCursor(CursorDir::UP);
+	}
+	if (y == 1)
+	{
+		Serial.println("moved l ");
+		this->moveCursor(CursorDir::LEFT);
+	}
+	if (y == -1)
+	{
+		Serial.println("moved r ");
+		this->moveCursor(CursorDir::RIGHT);
+	}
+	_x = _index[0];
+	_y = _index[1];
+	} while (true);
+}
+

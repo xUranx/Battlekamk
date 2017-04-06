@@ -2,10 +2,10 @@
 #include "CustomVector.h"
 
 class S1D13700;
-
+class Joystick;
 enum class CursorDir
 {
-	UP,DOWN,LEFT,RIGHT
+	UP,DOWN,LEFT,RIGHT,_DEFAULT
 };
 enum class Shape
 {
@@ -15,13 +15,14 @@ enum class Shape
 class Coordinates
 {
 public:
-	Coordinates(S1D13700 *handler);
+	Coordinates(S1D13700 *handler,Joystick *stick);
 	~Coordinates();
 	void drawCoord();
 	void drawChar();
 	void drawShape(Shape shape, int x,int y);
-	void moveCursor(CursorDir _dir);
+	void coordLoop(int &_x,int &_y);
 private:
+	void moveCursor(CursorDir _dir);
 	void setWord(CustomVector<CustomVector<char>> &words,char array[]);
 	CustomVector<int> _index;
 	S1D13700 *_handler;
@@ -33,6 +34,6 @@ private:
 	int _currentYSector;
 	const int _BoxWidht;
 	const int _BoxHeight;
-
+	Joystick *_stick
 };
 

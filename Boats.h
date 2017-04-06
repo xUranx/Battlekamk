@@ -1,5 +1,7 @@
 #pragma once
 #include "CustomVector.h"
+
+class Coordinates;
 class Grid
 {
 public:
@@ -12,6 +14,7 @@ public:
 	Node chekValue(int x, int y);
 	void setValue(int x, int y, Node what = Node::BOAT);
 	void operator =(Grid n);
+	bool checkVictory();
 private:
 	void init();
 };
@@ -41,11 +44,18 @@ private:
 	};
 	bool setValue(int _x,int _y);
 public:
+	enum class Type
+	{
+		LONG,MED,SHORT,HORIZONTAL,VERTICAL
+	};
+	Boats::Boats(Grid *grid,Coordinates *coo);
+	bool checkAmount();
+	void placeBoat(Type _type, Type _dir);
+private:
+	void boatCursor();
+	Grid *_grid;
+	Coordinates *_coo;
 	CustomVector<Long> longs;
 	CustomVector<Medium> mediums;
 	CustomVector<Short> shorts;
-	Grid _grid;
-	bool addValue(int _x, int _y);
-	bool checkAmount();
-	void getGrid(Grid n) const { n = _grid; }// saattaa sekottaa ja ylikuormitettu
 };

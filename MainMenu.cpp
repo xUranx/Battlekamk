@@ -70,8 +70,6 @@ write(CustomVector<CustomVector <char>> &word)
 	{ 
 		_handler->textGoTo(TEXTX,ySize);
 
-		
-		// 
 		_handler->writeText(word[i].y);//get the WORD!!!
 		ySize += plus;
 		texts++;

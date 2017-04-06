@@ -71,7 +71,7 @@ class S1D13700
     void clearGraphic(void);
     
     void drawBox(int x0, int y0, int x1, int y1,int visible = 1);
-    void drawCircle(int x0, int y0, int radius);
+    void drawCircle(int x0, int y0, int radius,int visible = 1);
     void drawLine(int x0, int y0, int x1, int y1);
    // void clearBox(int x0, int y0, int x1, int y1); // poistaa boxin
 	

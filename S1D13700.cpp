@@ -458,7 +458,7 @@ void S1D13700::drawBox(int x0, int y0, int x1, int y1,int visible)
 		http://en.wikipedia.org/wiki/Midpoint_circle_algorithm
 	I chose it because it avoids floats
 */
-void S1D13700::drawCircle(int x0, int y0, int radius)
+void S1D13700::drawCircle(int x0, int y0, int radius, int visible)
 {
 	  int f = 1 - radius;
 	  int ddF_x = 1;
@@ -466,10 +466,11 @@ void S1D13700::drawCircle(int x0, int y0, int radius)
 	  int x = 0;
 	  int y = radius;
 	 
-	  setPixel(x0, y0 + radius);
-	  setPixel(x0, y0 - radius);
-	  setPixel(x0 + radius, y0);
-	  setPixel(x0 - radius, y0);
+	  setPixel(x0, y0 + radius,visible);
+
+	  setPixel(x0, y0 - radius, visible);
+	  setPixel(x0 + radius, y0, visible);
+	  setPixel(x0 - radius, y0, visible);
 	 
 	  while(x < y)
 	  {
@@ -485,14 +486,14 @@ void S1D13700::drawCircle(int x0, int y0, int radius)
 		x++;
 		ddF_x += 2;
 		f += ddF_x;    
-		setPixel(x0 + x, y0 + y);
-		setPixel(x0 - x, y0 + y);
-		setPixel(x0 + x, y0 - y);
-		setPixel(x0 - x, y0 - y);
-		setPixel(x0 + y, y0 + x);
-		setPixel(x0 - y, y0 + x);
-		setPixel(x0 + y, y0 - x);
-		setPixel(x0 - y, y0 - x);
+		setPixel(x0 + x, y0 + y, visible);
+		setPixel(x0 - x, y0 + y, visible);
+		setPixel(x0 + x, y0 - y, visible);
+		setPixel(x0 - x, y0 - y, visible);
+		setPixel(x0 + y, y0 + x, visible);
+		setPixel(x0 - y, y0 + x, visible);
+		setPixel(x0 + y, y0 - x, visible);
+		setPixel(x0 - y, y0 - x, visible);
 	  }
 
 }

@@ -49,22 +49,27 @@ void Grid::operator =(Grid n)
 		}
 	}
 }
-
-bool Boats::addValue(int _x, int _y)
+bool Grid::
+checkVictory()
 {
-	Grid::Node stat = _grid.chekValue(_x, _y);
-	if (stat != Grid::Node::BOAT)
+	for (int y = 0; y < 10; y++)
 	{
-		if (this->setValue(_x,_y))
+		for (int x = 0; x < 10; x++)
 		{
-		_grid.setValue(_x, _y);
+			if (node[y][x]== Node::BOAT)
+			{
+				return false;
+			}
 		}
+
 	}
-	else
-	{
-		return false;
-	}
+	return true;
 }
+
+Boats::Boats(Grid *grid, Coordinates *coo) :_grid(grid), _coo(coo)
+{
+}
+
 bool Boats::checkAmount()
 {
 	if (longs.amount == 2 && mediums.amount == 3 && shorts.amount == 4)
@@ -76,7 +81,33 @@ bool Boats::checkAmount()
 		return false;
 	}
 }
-bool Boats::setValue(int _x, int _y) // true if legit
+void Boats::placeBoat(Type _type,Type _dir)
+{
+	CustomVector<int> 
+	switch (_type)
+	{
+	case Boats::Type::LONG:
+	{
+		this->boatCursor();
+	}
+		break;
+	case Boats::Type::MED:
+	{
+		this->boatCursor();
+	}
+		break;
+	case Boats::Type::SHORT:
+	{		
+		this->boatCursor();
+	}
+		break;
+	default:
+		break;
+	}
+}
+void Boats::boatCursor()
 {
 
 }
+
+
