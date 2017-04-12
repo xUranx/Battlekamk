@@ -65,9 +65,15 @@ checkVictory()
 	}
 	return true;
 }
-
-Boats::Boats(Grid *grid, Coordinates *coo) :_grid(grid), _coo(coo)
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------*/
+Boats::Boats() : _grid(nullptr)
 {
+}
+void Boats::init(Grid *grid)
+{
+	_grid = grid;
 }
 
 bool Boats::checkAmount()
@@ -83,7 +89,7 @@ bool Boats::checkAmount()
 }
 void Boats::placeBoat(Type _type,Type _dir)
 {
-	CustomVector<int> 
+	//CustomVector<int> 
 	switch (_type)
 	{
 	case Boats::Type::LONG:
@@ -109,5 +115,10 @@ void Boats::boatCursor()
 {
 
 }
+bool isValid(int x, int y)
+{
+
+}
+
 
 

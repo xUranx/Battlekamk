@@ -1,3 +1,4 @@
+
 #pragma once
 #include "Defines.h"
 #include "CustomVector.h"
@@ -33,7 +34,7 @@ protected:
 	static const int _pixelDifference = 20;
 	static const int screenHeight = 240;
 	static const int TEXTX = 13;
-	static const int TEXTXHEIGHT = 35; 
+	static const int TEXTXHEIGHT = 30; //35
 	Boxes _boxes;//init this always
 	int _divide;
 	int UY;

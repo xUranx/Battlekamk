@@ -1,6 +1,7 @@
 #include "Coordinates.h"
 #include "S1D13700.h"
-Coordinates::Coordinates(S1D13700 *handler, Joystick *stick) :_handler(handler),_stick(stick), _screenWidht(320), _screenHeight(240), _XPlus(320 / 11), _YPlus(240 / 11), _currentXSector(_XPlus + 4), _currentYSector(_YPlus + 4), _BoxHeight(15), _BoxWidht(20)
+#include "Joystick.h"
+Coordinates::Coordinates() :_handler(nullptr),_stick(nullptr), _screenWidht(320), _screenHeight(240), _XPlus(320 / 11), _YPlus(240 / 11), _currentXSector(_XPlus + 4), _currentYSector(_YPlus + 4), _BoxHeight(15), _BoxWidht(20)
 {
 	_index.setValue(1);
 	_index.setValue(1);
@@ -11,9 +12,17 @@ Coordinates::~Coordinates()
 {
 }
 void Coordinates::
+init(S1D13700 *handler, Joystick *stick)
+{
+	_handler = handler;
+	_stick = stick;
+}
+void Coordinates::
 drawCoord()
 {
-
+	_handler->clearGraphic();
+	_handler->clearText();
+	this->moveCursor(CursorDir::_DEFAULT);
 	int sectorX = _XPlus;
 	for (int i = 0; i < 10; i++)
 	{
@@ -167,42 +176,40 @@ drawShape(Shape shape, int x, int y)
 }
 void Coordinates::coordLoop(int &_x, int &_y)
 {
-	this->moveCursor(CursorDir::_DEFAULT);
-
 
 	do
 	{
-	delay(500);
+	delay(200);
 	int x = 0;
 	int y = 0;
 	do
 	{
 		x = _stick->ReadY();
 		y = _stick->ReadX();
-	/*	if (_stickReadButton())
+		if (_stick->Button())
 		{
 			return;
-		}*/
+		}
 	} while (x == 0 && y == 0);
 	if (x == 1)
-	{
-		Serial.println("moved d ");
-		this->moveCursor(CursorDir::DOWN);
-	}
-	else if (x == -1)
 	{
 		Serial.println("moved u ");
 		this->moveCursor(CursorDir::UP);
 	}
-	if (y == 1)
+	else if (x == -1)
 	{
-		Serial.println("moved l ");
-		this->moveCursor(CursorDir::LEFT);
+		Serial.println("moved d ");
+		this->moveCursor(CursorDir::DOWN);
 	}
-	if (y == -1)
+	if (y == 1)
 	{
 		Serial.println("moved r ");
 		this->moveCursor(CursorDir::RIGHT);
+	}
+	if (y == -1)
+	{
+		Serial.println("moved l ");
+		this->moveCursor(CursorDir::LEFT);
 	}
 	_x = _index[0];
 	_y = _index[1];

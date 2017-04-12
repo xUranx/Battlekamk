@@ -5,7 +5,7 @@ class S1D13700;
 class Joystick;
 enum class CursorDir
 {
-	UP,DOWN,LEFT,RIGHT,_DEFAULT
+	UP,DOWN,LEFT,RIGHT,_DEFAULT,_BACK
 };
 enum class Shape
 {
@@ -15,8 +15,9 @@ enum class Shape
 class Coordinates
 {
 public:
-	Coordinates(S1D13700 *handler,Joystick *stick);
+	Coordinates();
 	~Coordinates();
+	void init(S1D13700 *handler, Joystick *stick);
 	void drawCoord();
 	void drawChar();
 	void drawShape(Shape shape, int x,int y);
@@ -34,6 +35,6 @@ private:
 	int _currentYSector;
 	const int _BoxWidht;
 	const int _BoxHeight;
-	Joystick *_stick
+	Joystick *_stick;
 };
 

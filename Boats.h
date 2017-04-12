@@ -24,7 +24,8 @@ class Boats
 private:
 	struct VecXY
 	{
-		const int x, y;
+		 
+		int x, y;
 	};
 	struct Long
 	{
@@ -39,6 +40,7 @@ private:
 	};
 	struct Short
 	{
+		
 		VecXY xy[1];
 		int amount = 1;
 	};
@@ -47,14 +49,16 @@ public:
 	enum class Type
 	{
 		LONG,MED,SHORT,HORIZONTAL,VERTICAL
+		
 	};
-	Boats::Boats(Grid *grid,Coordinates *coo);
+	Boats::Boats();
 	bool checkAmount();
 	void placeBoat(Type _type, Type _dir);
+	void init(Grid *grid);
+	bool isValid(int x,int y);
 private:
 	void boatCursor();
 	Grid *_grid;
-	Coordinates *_coo;
 	CustomVector<Long> longs;
 	CustomVector<Medium> mediums;
 	CustomVector<Short> shorts;

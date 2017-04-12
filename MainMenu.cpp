@@ -41,8 +41,7 @@ void MainMenu::getBoxPositions(int boxAmount)
 		vector.setValue(middleVector.y[i] + _pixelDifference);
 	}
 	_boxes.init(_handler,vector,RX,LX);
-	Serial.print("box ammount ");//TESTIÄ
-	Serial.print(_boxes.vectors.amount);//TESTIÄ
+
 	if (_boxes.index != boxAmount)
 	{
 		char buff[] = "Boxes not equal to amount ";
@@ -55,6 +54,7 @@ write(CustomVector<CustomVector <char>> &word)
 {
 	_handler->clearGraphic();
 	_handler->clearText();
+	this->drawBox();
 	int plus = TEXTXHEIGHT / (_boxes.index+1);
 	int ySize = plus;
 	int texts = 0;
@@ -77,9 +77,9 @@ write(CustomVector<CustomVector <char>> &word)
 	}
 	else
 	{
-		Serial.print(" String amount ");
+		Serial.println(" String amount ");
 
-		Serial.print(word.amount);
+		Serial.println(word.amount);
 		char buff[] = "Not correct string amount";
 		fatalError(_handler,buff);
 	}
@@ -109,7 +109,7 @@ setIndex(Index where)
 {
 	if (where == Index::DOWN)
 	{
-		if (_index == _boxes.index)
+		if (_index == _boxes.index-1)
 		{
 			_index = 0;
 		}
@@ -128,18 +128,21 @@ setIndex(Index where)
 		{
 			--_index;
 		}
-		Serial.print(_index);
-	}
+	}		
+		Serial.println("current index is ");
+		Serial.println(_index);
 }
 int MainMenu::
 loop()
 {
+	_index = 0;
 	bool button = false;// TÄHÄN TULEE NAPIN LUKU
 	do
 	{
 		delay(100);
 		int where = _stick->ReadY();
-		if (button == 0)
+
+		if (!_stick->Button())
 		{
 			switch (where)
 			{
@@ -152,6 +155,10 @@ loop()
 			default:
 				break;
 			}
+		}
+		else
+		{
+			button = true;
 		}
 	} while (!button);
 	return _index;
