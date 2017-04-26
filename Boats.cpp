@@ -68,7 +68,7 @@ checkVictory()
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------*/
-Boats::Boats() : _grid(nullptr)
+Boats::Boats() : _grid(nullptr),_longs(0), _mediums(0), _shorts(0)
 {
 }
 void Boats::init(Grid *grid)
@@ -78,7 +78,7 @@ void Boats::init(Grid *grid)
 
 bool Boats::checkAmount()
 {
-	if (longs.amount == 2 && mediums.amount == 3 && shorts.amount == 4)
+	if (_longs == 2 && _mediums == 3 && _shorts == 4)
 	{
 		return true;
 	}
@@ -113,11 +113,11 @@ void Boats::placeBoat(Type _type,Type _dir)
 }
 void Boats::boatCursor()
 {
-
+	// implement this
 }
-bool isValid(int x, int y)
+bool Boats::isValid(int x, int y, Type _type, Type _dir)
 {
-
+	return true;
 }
 
 
