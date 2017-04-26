@@ -42,6 +42,8 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include "Arduino.h"
 #include "S1D13700.h"
+#include <avr/pgmspace.h>
+
 
 /*Constructor, set pin markers to their default values */
 S1D13700::S1D13700(void)
@@ -246,6 +248,52 @@ void S1D13700::writeText(char * text)
 	while(*text)
 	{
 		writeData(*text++);
+	}
+}
+//Write text using a fixed 16-pixel width, 24 pixel height bitmap font, each character is 48 bytes or 24 ints
+//first param is pointer to the string to be written
+//last param is pointer to the font
+void S1D13700::writeBitmapText(char * text,int x, int y, unsigned int * font)
+{
+	unsigned int * fontPointer;
+	char i;
+
+
+
+	while(*text)
+	{
+
+		//First get the pointer to the first int of the font letter
+		//Font starts with space which is ascii char #32
+		fontPointer = font + ((*text - 32) * 24); // each char 24 ints long
+		for (i=0;i<24;i++)
+		{
+			//X is reset on the page boundry (every 8 pixels) for speed and ease of implementation
+			//Move LCD ram cursor to appropriate location
+			//40 is the number of bytes in a horizontal row
+			setCursorAddress(S1D13700_GRAPHICSTART + (40 * (y+i)) + (x/8)); 
+			//send command to write to LCD RAM
+			writeCommand(S1D13700_MWRITE);
+			//Write Data
+			writeData(pgm_read_word_near(fontPointer)); //lowbyte or first 8 pixels of this row
+			writeData(pgm_read_word_near(fontPointer) >> 8); //highbyte or last 8 pixels
+			fontPointer++;
+		}
+		text++;
+		x+=16; //move the cursor 16 pixels for the next char
+	}
+}
+void S1D13700::drawBitmap(unsigned char * bmp, int x, int y, int width, int height)
+{
+unsigned int i, j;
+int bytewidth = width/8 + (width % 8 != 0);
+for(i = 0; i < height ; i++)
+	{
+	setCursorAddress(S1D13700_GRAPHICSTART + (40 * (y+i)) + (x/8)); 
+	writeCommand(S1D13700_MWRITE);
+	//(width % 8 != 0))
+	for(j = 0; j < bytewidth; j++)
+		writeData(pgm_read_byte_near(bmp+j+(bytewidth*i)));
 	}
 }
 

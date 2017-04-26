@@ -63,6 +63,7 @@ class S1D13700
     void initLCD(void);
     
     void writeText(char * text);
+	void writeBitmapText(char * text,int x, int y, unsigned int * font);
     void setPixel(unsigned int x,unsigned int y, unsigned char state);
     void setCursorAddress(unsigned int address);
     void textGoTo(unsigned char x, unsigned char y);
@@ -73,6 +74,7 @@ class S1D13700
     void drawBox(int x0, int y0, int x1, int y1,int visible = 1);
     void drawCircle(int x0, int y0, int radius,int visible = 1);
     void drawLine(int x0, int y0, int x1, int y1);
+	void drawBitmap(unsigned char * bmp, int x, int y, int width, int height);
    // void clearBox(int x0, int y0, int x1, int y1); // poistaa boxin
 	
 	struct pin_type {
