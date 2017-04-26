@@ -29,19 +29,19 @@ private:
 	};
 	struct Long
 	{
-		VecXY xy[3];
+		VecXY xy[4];
 		int amount = 3;
 	};
 	struct Medium
 	{
-		VecXY xy[2];
+		VecXY xy[3];
 		int amount = 2;
 
 	};
 	struct Short
 	{
 		
-		VecXY xy[1];
+		VecXY xy[2];
 		int amount = 1;
 	};
 	bool setValue(int _x,int _y);
@@ -51,15 +51,19 @@ public:
 		LONG,MED,SHORT,HORIZONTAL,VERTICAL
 		
 	};
+	enum class State 
+	{
+	Used,Reserved,Free
+	};
 	Boats::Boats();
 	bool checkAmount();
 	void placeBoat(Type _type, Type _dir);
 	void init(Grid *grid);
-	bool isValid(int x,int y);
+	bool isValid(int x, int y, Type _type, Type _dir);
 private:
 	void boatCursor();
 	Grid *_grid;
-	CustomVector<Long> longs;
-	CustomVector<Medium> mediums;
-	CustomVector<Short> shorts;
+	int _shorts;
+	int _mediums;
+	int _longs;
 };

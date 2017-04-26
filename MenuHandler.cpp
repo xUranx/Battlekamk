@@ -80,7 +80,7 @@ menuLoop()
 		wordsD.setValue(wordB4);//back
 
 		/*----------------------------------*/
-
+		Boats::Type btyp;
 		int choise = 1;
 		do
 		{
@@ -109,17 +109,26 @@ menuLoop()
 				_dirMen.write(wordsD);
 				Serial.println("Loop said ");
 				int c = _dirMen.loop();
+				
+
 				int x = 0;
 				int y = 0;
+
 				if (c != 2)
 				{
+				Boats::Type vectype = Boats::Type::HORIZONTAL;
+					if (c == 1)
+					{
+						vectype = Boats::Type::VERTICAL;
+					}
 				_coo.drawCoord();
 				bool b = false;
 				do
 				{
 				_coo.coordLoop(x,y);
-				} while (!_boatChecker.isValid(x,y));
-
+				} while (!_boatChecker.isValid(x,y,btyp,vectype));
+				
+				_boatChecker.placeBoat(btyp, vectype);
 				}
 				Serial.println(c);
 				Serial.println(x);
@@ -140,6 +149,22 @@ menuLoop()
 				}
 				else if (b  == 0 || b == 1 || b==2)
 				{
+					switch (b)
+					{
+					case 0:
+						btyp = Boats::Type::LONG;
+						break;
+					case 1:
+						btyp = Boats::Type::MED;
+						break;
+					case 2:
+						btyp = Boats::Type::SHORT;
+						break;
+					default:
+						btyp = Boats::Type::SHORT;
+						Serial.println("ERROR, USED DEFAULT CASE IN CASE 3");
+						break;
+					}
 					choise = 2;
 				}
 				else
