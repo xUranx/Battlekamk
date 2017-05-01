@@ -4,9 +4,9 @@
 #include "S1D13700.h"
 #include "Joystick.h"
 #include "MenuHandler.h"
-#include "Pictures.h"
-#include "PrintHex.h"
-
+#include "Pictures.h"// do we need?
+#include "PrintHex.h"// do we need?
+#include "Grid.h"
 Joystick _stick;
 S1D13700 LCD;
 PrintHex hexx;
@@ -23,10 +23,24 @@ void setup() {
 
 void loop() 
 {
+
 	Joystick _stick;
-	MenuHandler menus(&LCD,&_stick);
-	menus.initClasses();
-	menus.menuLoop();
+	Grid _grid;	//this runs constantly in memory
+	for (;;)
+	{
+#ifdef DEBUG = 0
+		Serial.println("Menus created");
+#endif // DEBUG = 0
+		MenuHandler *menus = new MenuHandler(&LCD, &_stick, &_grid); // we dont need menus in memory constantly so we delete it before game loop and create it when we need it
+		menus->initClasses();
+		int state = menus->menuLoop();
+		delete menus;
+		_grid.normalize();
+#ifdef DEBUG = 0
+		Serial.println("Game loop started");
+#endif // DEBUG = 0
+	// go to game loop
+	}
 	/*if (_stick.Button())
 	{
 		LCD.textGoTo(20, 20);

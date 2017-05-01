@@ -29,12 +29,6 @@ protected:
 	void setIndex(Index where);
 	S1D13700 *_handler;
 	Joystick *_stick;
-	static const int RX = 280;
-	static const int LX = 40;
-	static const int _pixelDifference = 20;
-	static const int screenHeight = 240;
-	static const int TEXTX = 13;
-	static const int TEXTXHEIGHT = 30; //35
 	Boxes _boxes;//init this always
 	int _divide;
 	int UY;

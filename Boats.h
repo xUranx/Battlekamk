@@ -1,50 +1,13 @@
 #pragma once
 #include "CustomVector.h"
-
 class Coordinates;
-class Grid
+class Grid;
+struct UsedPositions
 {
-public:
-	enum class Node
-	{
-		FREE,BOAT
-	};
-	Grid::Grid();
-	Node node[10][10];
-	Node chekValue(int x, int y);
-	void setValue(int x, int y, Node what = Node::BOAT);
-	void operator =(Grid n);
-	bool checkVictory();
-private:
-	void init();
-};
 
+};
 class Boats
 {
-private:
-	struct VecXY
-	{
-		 
-		int x, y;
-	};
-	struct Long
-	{
-		VecXY xy[4];
-		int amount = 3;
-	};
-	struct Medium
-	{
-		VecXY xy[3];
-		int amount = 2;
-
-	};
-	struct Short
-	{
-		
-		VecXY xy[2];
-		int amount = 1;
-	};
-	bool setValue(int _x,int _y);
 public:
 	enum class Type
 	{
@@ -56,12 +19,13 @@ public:
 	Used,Reserved,Free
 	};
 	Boats::Boats();
-	bool checkAmount();
-	void placeBoat(Type _type, Type _dir);
+	bool checkAmount(); // use for checking correct amount before going to game
+	bool checkIsTooMuch(Type _type);	// use before trying to add boats
 	void init(Grid *grid);
 	bool isValid(int x, int y, Type _type, Type _dir);
 private:
-	void boatCursor();
+	void placeBoat(int x, int y, Type _type, Type _dir);
+	bool correctPlace(int x, int y,int lenght, Type _dir);
 	Grid *_grid;
 	int _shorts;
 	int _mediums;

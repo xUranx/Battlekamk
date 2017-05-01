@@ -1,7 +1,8 @@
 #include "MenuHandler.h"
 #include "Coordinates.h"
 #include "Joystick.h"
-MenuHandler::MenuHandler(S1D13700 *handler, Joystick *stick) : _handler(handler), _stick(stick)
+#include "Defines.h"
+MenuHandler::MenuHandler(S1D13700 *handler, Joystick *stick,Grid *grid) : _handler(handler), _stick(stick),_grid(grid)
 {
 }
 
@@ -16,9 +17,9 @@ initClasses()
 	_boats.init(_handler, _stick, 4);
 	_dirMen.init(_handler,_stick,3);
 	_coo.init(_handler,_stick);
-	_boatChecker.init(&_grid);
+	_boatChecker.init(_grid);
 }
-void MenuHandler::
+int MenuHandler::
 menuLoop()
 {
 
@@ -86,31 +87,56 @@ menuLoop()
 		{
 			switch (choise)
 			{
-			case 1:
+			case 1:                            /*            MAIN MENU          */
 			{
+#ifdef DEBUG = 0
 			Serial.println("Started main menu loop");
+#endif // DEBUG =
 			_main.write(wordsM);
 			int a = _main.loop();
+#ifdef DEBUG = 0
 			Serial.println("Loop said ");
 			Serial.println(a);
-			if (a == 2)
+#endif // DEBUG =
+			if (a == 2) //boat menu
 			{
 				choise = 3;
 			}
+			else if (a = 0) // PVP
+			{
+				if (_boatChecker.checkAmount())
+				{
+					return 0; //PVP
+				}
+				else
+				{
+				choise = 1;
+				}
+			}
 			else
 			{
-				choise = 1;
+				if (_boatChecker.checkAmount())
+				{
+					return 1; 
+				}
+				else
+				{
+					choise = 1;
+				}
 			}
 			break;
 			}
-			case 2:
+			case 2:                                                /*            DIRECTION MENU          */
 			{
+#ifdef DEBUG = 0
 				Serial.println("Started dir menu loop");
-				_dirMen.write(wordsD);
-				Serial.println("Loop said ");
-				int c = _dirMen.loop();
-				
+#endif // DEBUG =
 
+				_dirMen.write(wordsD);
+#ifdef DEBUG = 0
+				Serial.println("Loop said ");
+#endif // DEBUG =
+				int c = _dirMen.loop();              //returns 0,1,2 = HORIZONTAL, VERTICAL, back
 				int x = 0;
 				int y = 0;
 
@@ -122,50 +148,78 @@ menuLoop()
 						vectype = Boats::Type::VERTICAL;
 					}
 				_coo.drawCoord();
+				for (int y = 1; y < 11; y++)
+				{
+					for (int x = 1; x < 11; x++)
+					{
+						Grid::Node _node = _grid->chekValue(x, y);
+						if (_node == Grid::Node::BOAT)
+						{
+							_coo.drawShape(Shape::Box, x, y);
+						}
+					}
+				}
+				//_grid-> TO DO
 				bool b = false;
 				do
 				{
-				_coo.coordLoop(x,y);
-				} while (!_boatChecker.isValid(x,y,btyp,vectype));
-				
-				_boatChecker.placeBoat(btyp, vectype);
+				_coo.coordLoop(x,y);				// does as long as position is valid and HAS NO BACK BUTTON
+				} while (!_boatChecker.isValid(x,y,btyp,vectype));				
+				//_boatChecker.placeBoat(btyp, vectype); place boat if valid
 				}
+#ifdef DEBUG = 0
 				Serial.println(c);
 				Serial.println(x);
 				Serial.println(y);
+#endif // DEBUG =
 				choise = 3;
 				break;
 			}
-			case 3:
+			case 3:												 /*            BOAT CHOICE MENU          */
 			{
+#ifdef DEBUG = 0
 				Serial.println("Started boat menu loop");
+#endif // DEBUG =
 				_boats.write(wordsB);
+#ifdef DEBUG = 0
 				Serial.println("Loop said ");
+#endif // DEBUG =
 				int b = _boats.loop();
+#ifdef DEBUG = 0
 				Serial.println(b);
+#endif // DEBUG =
 				if (b == 3)
 				{
 					choise = 1;
 				}
 				else if (b  == 0 || b == 1 || b==2)
 				{
+					bool correctBoatAmount = true;
 					switch (b)
 					{
 					case 0:
 						btyp = Boats::Type::LONG;
+						correctBoatAmount = _boatChecker.checkIsTooMuch(Boats::Type::LONG);
 						break;
 					case 1:
 						btyp = Boats::Type::MED;
+						correctBoatAmount = _boatChecker.checkIsTooMuch(Boats::Type::MED);
 						break;
 					case 2:
 						btyp = Boats::Type::SHORT;
+						correctBoatAmount = _boatChecker.checkIsTooMuch(Boats::Type::SHORT);
 						break;
 					default:
 						btyp = Boats::Type::SHORT;
+#ifdef DEBUG = 0
 						Serial.println("ERROR, USED DEFAULT CASE IN CASE 3");
+#endif // DEBUG =
 						break;
 					}
+					if (correctBoatAmount)
+					{
 					choise = 2;
+					}
 				}
 				else
 				{

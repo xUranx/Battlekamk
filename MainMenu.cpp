@@ -26,7 +26,7 @@ void MainMenu::getBoxPositions(int boxAmount)
 	int boxPos = 0;
 	if (_divide != 0)
 	{
-	boxPos = screenHeight / _divide;
+	boxPos = SCREENHEIGHT / _divide;
 	}
 	int box = boxPos;
 	for (int i = 0; i < boxAmount; i++)
@@ -37,10 +37,10 @@ void MainMenu::getBoxPositions(int boxAmount)
 
 	for (int i = 0; i < middleVector.amount; i++)
 	{
-		vector.setValue(middleVector.y[i] - _pixelDifference);
-		vector.setValue(middleVector.y[i] + _pixelDifference);
+		vector.setValue(middleVector.y[i] - PIXELDIFFERENCE);
+		vector.setValue(middleVector.y[i] + PIXELDIFFERENCE);
 	}
-	_boxes.init(_handler,vector,RX,LX);
+	_boxes.init(_handler,vector);
 
 	if (_boxes.index != boxAmount)
 	{
@@ -60,9 +60,11 @@ write(CustomVector<CustomVector <char>> &word)
 	int texts = 0;
 	if (word.amount == _boxes.index)
 	{
+#ifdef DEBUG = 0
 		Serial.print(" String amount ");
-
 		Serial.print(word.amount);
+#endif // DEBUG =
+
 
 
 		
@@ -77,9 +79,11 @@ write(CustomVector<CustomVector <char>> &word)
 	}
 	else
 	{
+#ifdef DEBUG = 0
 		Serial.println(" String amount ");
-
 		Serial.println(word.amount);
+#endif // DEBUG =
+
 		char buff[] = "Not correct string amount";
 		fatalError(_handler,buff);
 	}
@@ -129,8 +133,10 @@ setIndex(Index where)
 			--_index;
 		}
 	}		
+#ifdef DEBUG = 0
 		Serial.println("current index is ");
 		Serial.println(_index);
+#endif // DEBUG =
 }
 int MainMenu::
 loop()

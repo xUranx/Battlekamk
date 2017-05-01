@@ -1,8 +1,7 @@
 #include "Radio.h"
+#include "Defines.h"
 
 
-#define LED 13
-#define analogPin A0 // muuta näitä
 
 
 RF24 Radio::radio(40, 53);
@@ -35,10 +34,12 @@ listenRadio(int &x,int &y)
 			y = data[1];
 			emptyArray();
 		} while (!radio.available());	//tekee niin kauan kuin saa järkeviä lukuja
-		
+#ifdef DEBUG = 0
 	Serial.write("got answer: ");
 	Serial.write(x);
 	Serial.write(y);
+#endif // DEBUG = 0
+
 
 	radio.stopListening();
 	unsigned long started_waiting_at = millis();
@@ -54,9 +55,11 @@ listenRadio(int &x,int &y)
 void Radio::
 sendRadio(const int x, const int y)
 {
+#ifdef DEBUG = 0
 	Serial.write("Sending coords: ");
 	Serial.write(x);
 	Serial.write(y);
+#endif // DEBUG = 0
 	do
 	{
 	radio.stopListening();
