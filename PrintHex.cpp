@@ -16,9 +16,7 @@ void PrintHex::Print(const uint8_t *tex, int _x, int _y)
 	y = _y;
 	int ins = 1;
 	int comp = 1;
-	int index = 0;
-	unsigned int tt = (uint8_t*)pgm_read_byte(tex + index);
-	Serial.println(tt);
+	index = 0;
 	while ((uint8_t*)pgm_read_byte(tex + index) != 0x03)
 	{
 		
@@ -34,13 +32,11 @@ void PrintHex::Print(const uint8_t *tex, int _x, int _y)
 				if (ins == 1)
 				{
 					for (uint8_t i = 0x00;i < count;i++)
-					{
-						for (int i = 0; i < 8; i++)
+					{	
+						x++;				
+						if (x >= 320/8)
 						{
-							x++;
-						}
-						if (x >= 320)
-						{
+							
 							x = _x;
 							y++;
 						}
@@ -55,13 +51,13 @@ void PrintHex::Print(const uint8_t *tex, int _x, int _y)
 				{
 					for (uint8_t i = 0x00;i < count;i++)
 					{
-						for (int j = 0; j < 8; j++)
+
+						printBTM(value);
+						x++;
+						
+						if (x >= 320/8)
 						{
-							lcd.setPixel(x, y, 1);
-							x++;
-						}
-						if (x >= 320)
-						{
+							
 							x = _x;
 							y++;
 						}
@@ -69,16 +65,14 @@ void PrintHex::Print(const uint8_t *tex, int _x, int _y)
 				}
 				else
 				{
-					CalcHex(value, bint);
 					for (uint8_t i = 0x00;i < count;i++)
 					{
-						for (int j = 0; j < 8; j++)
+
+						printBTM(value);
+						x++;
+						if (x >= 320/8)
 						{
-							lcd.setPixel(x, y, bint[j]);
-							x++;
-						}
-						if (x >= 320)
-						{
+							
 							x = _x;
 							y++;
 						}
@@ -94,16 +88,13 @@ void PrintHex::Print(const uint8_t *tex, int _x, int _y)
 			index++;
 			for (uint8_t i = 0x00; i < count;i++)
 			{
-				int bint[8] = { 0 };
-				CalcHex((uint8_t*)pgm_read_byte(tex + index), bint);
 
-				for (int j = 0; j < 8; j++)
+				printBTM(pgm_read_byte(tex + index));
+				x++;
+
+				if (x >= 320/8)
 				{
-					lcd.setPixel(x, y, bint[j]);
-					x++;
-				}
-				if (x >= 320)
-				{
+					
 					x = _x;
 					y++;
 				}
@@ -111,54 +102,22 @@ void PrintHex::Print(const uint8_t *tex, int _x, int _y)
 				
 			}
 		}
-		if (x >= 320)
+		if (x >= 320/8)
 		{
+			
 			x = _x;
 			y++;
 		}
 		
 	}
 }
-void PrintHex::CalcHex(uint8_t value, int *bint)
+
+
+void PrintHex::printBTM(uint8_t tex)
 {
-	if (value - 0x80 >= 0x00)
-	{
-		bint[0] = 1;
-		value -= 0x80;
-	}
-	if (value - 0x40 >= 0x00)
-	{
-		bint[1] = 1;
-		value -= 0x40;
-	}
-	if (value - 0x20 >= 0x00)
-	{
-		bint[2] = 1;
-		value -= 0x20;
-	}
-	if (value - 0x10 >= 0x00)
-	{
-		bint[3] = 1;
-		value -= 0x10;
-	}
-	if (value - 0x08 >= 0x00)
-	{
-		bint[4] = 1;
-		value -= 0x08;
-	}
-	if (value - 0x04 >= 0x00)
-	{
-		bint[5] = 1;
-		value -= 0x04;
-	}
-	if (value - 0x02 >= 0x00)
-	{
-		bint[6] = 1;
-		value -= 0x02;
-	}
-	if (value - 0x01 >= 0x00)
-	{
-		bint[7] = 1;
-		value -= 0x01;
-	}
+	S1D13700 lcd;
+	lcd.setCursorAddress(S1D13700_GRAPHICSTART + (40 * y) + x);
+	lcd.writeCommand(S1D13700_MWRITE);
+	//(width % 8 != 0))
+	lcd.writeData(tex);
 }
