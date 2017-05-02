@@ -2,7 +2,8 @@
 #include "Defines.h"
 #include "Coordinates.h"
 #include "Radio.h"
-#include "Coordinates.h"
+#include "Joystick.h"
+#include "Grid.h"
 Game::Game(S1D13700 *handler, Grid *grid, Joystick *stick, States gametype): _handler(handler),_grid(grid),_stick(stick),_gameType(gametype)
 {
 	Radio::radioSetup();

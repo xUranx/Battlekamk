@@ -1,6 +1,7 @@
 #include "Boats.h"
 #include "Grid.h"
 #include "Defines.h"
+#include "Arduino.h"
 
 
 Boats::Boats() : _grid(nullptr),_longs(0), _mediums(0), _shorts(0)
@@ -80,7 +81,7 @@ void Boats::placeBoat(int x,int y,Type _type,Type _dir)
 			_grid->setValue(x - 1 + i, y - 1, Grid::Node::RESERVED);
 			_grid->setValue(x - 1 + i, y + 1, Grid::Node::RESERVED);
 		}
-#ifdef DEBUG = 0
+#if DEBUG == 0
 		Serial.println("placed horizontal boat");
 #endif // DEBUG = 0
 
@@ -94,7 +95,7 @@ void Boats::placeBoat(int x,int y,Type _type,Type _dir)
 			_grid->setValue(x - 1 + i, y - 1 + i, Grid::Node::RESERVED);
 			_grid->setValue(x + 1 + i, y - 1 + i, Grid::Node::RESERVED);
 		}
-#ifdef DEBUG = 0
+#if DEBUG == 0
 		Serial.println("placed vertical boat");
 #endif // DEBUG = 0
 	}
@@ -117,7 +118,7 @@ bool Boats::isValid(int x, int y, Type _type, Type _dir)
 		currentLenght = SHORT_LEN;
 		break;
 	default:
-#ifdef DEBUG = 0
+#if DEBUG == 0
 		Serial.println("ERROR DEFAULT VALUE USED IN BOAT CHECK // ISVALID");
 #endif // DEBUG = 0
 		currentLenght = SHORT_LEN;
@@ -157,7 +158,7 @@ checkIsTooMuch(Type _type)
 		}
 		break;
 	default:
-#ifdef DEBUG = 0
+#if DEBUG == 0
 		Serial.println("ERROR USED DEFAULT VALUE IN BOAT CHECK");
 #endif // DEBUG =
 		return false;
@@ -171,7 +172,7 @@ bool Boats::correctPlace(int x, int y, int lenght, Type _dir)
 	{
 		if (_grid->chekValue(x,y) == Grid::Node::BOAT || _grid->chekValue(x, y) == Grid::Node::RESERVED)
 		{
-#ifdef DEBUG = 0
+#if DEBUG == 0
 			Serial.println("INCORRECT PLACE");
 #endif // DEBUG =
 			return false;

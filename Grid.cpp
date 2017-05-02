@@ -1,6 +1,6 @@
 #include "Grid.h"
 #include "Defines.h"
-
+#include "Arduino.h"
 
 Grid::Grid()
 {
@@ -21,7 +21,7 @@ void Grid::setValue(int x, int y, Node what)
 			x -= 1;
 			y -= 1;
 			node[y][x] = what;
-#ifdef DEBUG = 0
+#if DEBUG == 0
 			Serial.print("Setted boat to x , y =");
 			Serial.print(x+1);
 			Serial.print(" ");
@@ -32,7 +32,7 @@ void Grid::setValue(int x, int y, Node what)
 	}
 	else
 	{
-#ifdef DEBUG = 0
+#if DEBUG == 0
 		Serial.println("ERROR SETTING VALUE");
 #endif // DEBUG = 0
 

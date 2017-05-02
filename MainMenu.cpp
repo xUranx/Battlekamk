@@ -60,7 +60,7 @@ write(CustomVector<CustomVector <char>> &word)
 	int texts = 0;
 	if (word.amount == _boxes.index)
 	{
-#ifdef DEBUG = 0
+#if DEBUG == 0
 		Serial.print(" String amount ");
 		Serial.print(word.amount);
 #endif // DEBUG =
@@ -79,7 +79,7 @@ write(CustomVector<CustomVector <char>> &word)
 	}
 	else
 	{
-#ifdef DEBUG = 0
+#if DEBUG == 0
 		Serial.println(" String amount ");
 		Serial.println(word.amount);
 #endif // DEBUG =
@@ -133,7 +133,7 @@ setIndex(Index where)
 			--_index;
 		}
 	}		
-#ifdef DEBUG = 0
+#if DEBUG == 0
 		Serial.println("current index is ");
 		Serial.println(_index);
 #endif // DEBUG =

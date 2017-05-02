@@ -28,7 +28,7 @@ void loop()
 	Grid _grid;	//this runs constantly in memory
 	for (;;)
 	{
-#ifdef DEBUG = 0
+#if DEBUG == 0
 		Serial.println("Menus created");
 #endif // DEBUG = 0
 		MenuHandler *menus = new MenuHandler(&LCD, &_stick, &_grid); // we dont need menus in memory constantly so we delete it before game loop and create it when we need it
@@ -36,7 +36,7 @@ void loop()
 		int state = menus->menuLoop();
 		delete menus;
 		_grid.normalize();
-#ifdef DEBUG = 0
+#if DEBUG == 0
 		Serial.println("Game loop started");
 #endif // DEBUG = 0
 	// go to game loop

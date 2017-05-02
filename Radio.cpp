@@ -34,7 +34,7 @@ listenRadio(int &x,int &y)
 			y = data[1];
 			emptyArray();
 		} while (!radio.available());	//tekee niin kauan kuin saa järkeviä lukuja
-#ifdef DEBUG = 0
+#if DEBUG == 0
 	Serial.write("got answer: ");
 	Serial.write(x);
 	Serial.write(y);
@@ -55,7 +55,7 @@ listenRadio(int &x,int &y)
 void Radio::
 sendRadio(const int x, const int y)
 {
-#ifdef DEBUG = 0
+#if DEBUG == 0
 	Serial.write("Sending coords: ");
 	Serial.write(x);
 	Serial.write(y);

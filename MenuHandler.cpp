@@ -1,6 +1,7 @@
 #include "MenuHandler.h"
 #include "Coordinates.h"
 #include "Joystick.h"
+#include "Grid.h"
 #include "Defines.h"
 MenuHandler::MenuHandler(S1D13700 *handler, Joystick *stick,Grid *grid) : _handler(handler), _stick(stick),_grid(grid)
 {
@@ -89,12 +90,12 @@ menuLoop()
 			{
 			case 1:                            /*            MAIN MENU          */
 			{
-#ifdef DEBUG = 0
+#if DEBUG == 0
 			Serial.println("Started main menu loop");
 #endif // DEBUG =
 			_main.write(wordsM);
 			int a = _main.loop();
-#ifdef DEBUG = 0
+#if DEBUG == 0
 			Serial.println("Loop said ");
 			Serial.println(a);
 #endif // DEBUG =
@@ -128,12 +129,12 @@ menuLoop()
 			}
 			case 2:                                                /*            DIRECTION MENU          */
 			{
-#ifdef DEBUG = 0
+#if DEBUG == 0
 				Serial.println("Started dir menu loop");
 #endif // DEBUG =
 
 				_dirMen.write(wordsD);
-#ifdef DEBUG = 0
+#if DEBUG == 0
 				Serial.println("Loop said ");
 #endif // DEBUG =
 				int c = _dirMen.loop();              //returns 0,1,2 = HORIZONTAL, VERTICAL, back
@@ -167,7 +168,7 @@ menuLoop()
 				} while (!_boatChecker.isValid(x,y,btyp,vectype));				
 				//_boatChecker.placeBoat(btyp, vectype); place boat if valid
 				}
-#ifdef DEBUG = 0
+#if DEBUG == 0
 				Serial.println(c);
 				Serial.println(x);
 				Serial.println(y);
@@ -177,15 +178,15 @@ menuLoop()
 			}
 			case 3:												 /*            BOAT CHOICE MENU          */
 			{
-#ifdef DEBUG = 0
+#if DEBUG == 0
 				Serial.println("Started boat menu loop");
 #endif // DEBUG =
 				_boats.write(wordsB);
-#ifdef DEBUG = 0
+#if DEBUG == 0
 				Serial.println("Loop said ");
 #endif // DEBUG =
 				int b = _boats.loop();
-#ifdef DEBUG = 0
+#if DEBUG == 0
 				Serial.println(b);
 #endif // DEBUG =
 				if (b == 3)
@@ -211,7 +212,7 @@ menuLoop()
 						break;
 					default:
 						btyp = Boats::Type::SHORT;
-#ifdef DEBUG = 0
+#if DEBUG == 0
 						Serial.println("ERROR, USED DEFAULT CASE IN CASE 3");
 #endif // DEBUG =
 						break;
