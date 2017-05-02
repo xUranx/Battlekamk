@@ -14,7 +14,7 @@ void Boats::init(Grid *grid)
 
 bool Boats::checkAmount()
 {
-	if (_longs == MAXLONG && _mediums == MAXMED && _shorts == MAXSHORT)
+	if (_longs + 1 == MAXLONG && _mediums +1 == MAXMED && _shorts +1== MAXSHORT)
 	{
 		return true;
 	}
@@ -92,8 +92,8 @@ void Boats::placeBoat(int x,int y,Type _type,Type _dir)
 		_grid->setValue(x, y + lenght, Grid::Node::RESERVED);
 		for (int i = 0; i < lenght + 2; i++)
 		{
-			_grid->setValue(x - 1 + i, y - 1 + i, Grid::Node::RESERVED);
-			_grid->setValue(x + 1 + i, y - 1 + i, Grid::Node::RESERVED);
+			_grid->setValue(x - 1 , y - 1 + i, Grid::Node::RESERVED);
+			_grid->setValue(x + 1 , y - 1 + i, Grid::Node::RESERVED);
 		}
 #if DEBUG == 0
 		Serial.println("placed vertical boat");
@@ -124,13 +124,33 @@ bool Boats::isValid(int x, int y, Type _type, Type _dir)
 		currentLenght = SHORT_LEN;
 		break;
 	}
-	if (x+currentLenght -1 <= 10 && y+currentLenght-1 <= 10)
+	int temp = 0;
+	if (_dir == Boats::Type::HORIZONTAL)
+	{
+		temp = x;
+	}
+	else
+	{
+		temp = y;
+	}
+	if (temp+currentLenght -1 <= 10 /*&& y+currentLenght-1 <= 10*/)
 	{
 		if (this->correctPlace(x,y,currentLenght,_dir))
 		{
 			this->placeBoat(x, y, _type, _dir);
 			return true;
 		}
+	}
+	else
+	{
+#if DEBUG == 0
+		Serial.println("NOT CORRECT PLACE IN ISVALID X,Y =");
+		Serial.println(x+currentLenght -1 <= 10);
+		Serial.println(y + currentLenght - 1 <= 10);
+
+		Serial.println(" ");
+
+#endif // DEBUG = 0
 	}
 	return false;
 }
@@ -140,13 +160,13 @@ checkIsTooMuch(Type _type)
 	switch (_type)
 	{
 	case Boats::Type::LONG:
-		if (_mediums < MAXMED)
+		if (_longs < MAXLONG)
 		{
 			return true;
 		}
 		break;
 	case Boats::Type::MED:
-		if (_shorts < MAXSHORT)
+		if (_mediums < MAXMED)
 		{
 			return true;
 		}
@@ -166,11 +186,11 @@ checkIsTooMuch(Type _type)
 	}
 	return false;
 }
-bool Boats::correctPlace(int x, int y, int lenght, Type _dir)
+bool Boats::correctPlace(int x, int y, int lenght, Type _dir) // HÄNDLÄÄ VÄÄRÄ X JA Y PAIKKA
 {
 	for (int i = 0; i < lenght; i++)
 	{
-		if (_grid->chekValue(x,y) == Grid::Node::BOAT || _grid->chekValue(x, y) == Grid::Node::RESERVED)
+		if (_grid->chekValue(x,y) == Grid::Node::BOAT || _grid->chekValue(x, y) == Grid::Node::RESERVED || x>10 || y>10)
 		{
 #if DEBUG == 0
 			Serial.println("INCORRECT PLACE");

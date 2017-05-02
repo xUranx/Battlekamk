@@ -6,7 +6,7 @@ Joystick::Joystick(void)
   Sw = 2;
   Xcord = A0;
   Ycord = A1;
-  pinMode(Sw, INPUT);
+  pinMode(Sw, INPUT_PULLUP);
 }
 
 int Joystick::ReadX(void)
@@ -47,7 +47,7 @@ int Joystick::ReadY(void)
 bool Joystick::Button(void)
 {
   int State = digitalRead(Sw);
-  if(State == HIGH)
+  if(State == 0)
   {
     return true;
   }

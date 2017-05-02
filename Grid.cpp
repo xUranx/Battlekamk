@@ -14,12 +14,14 @@ Grid::Node Grid::chekValue(int x, int y)
 };
 void Grid::setValue(int x, int y, Node what)
 {
-	if (x>0 && y>0 && x<10 && y<10)
+	if (x>0 && y>0 && x<=10 && y<=10)
 	{
-		if (node[y][x] != Node::RESERVED)
-		{
 			x -= 1;
 			y -= 1;
+		if (node[y][x] != Node::RESERVED)
+		{
+	/*		x -= 1;
+			y -= 1;*/// MUOKATTU
 			node[y][x] = what;
 #if DEBUG == 0
 			Serial.print("Setted boat to x , y =");
@@ -29,11 +31,24 @@ void Grid::setValue(int x, int y, Node what)
 #endif // DEBUG = 0
 
 		}
+		else if (node[y][x] == Node::RESERVED)
+		{
+#if DEBUG == 0
+			Serial.println("Boat found in RESERVED PLACE DANGER DANGER ");
+			Serial.print(x +1);
+			Serial.print(" ");
+			Serial.println(y +1);
+#endif // DEBUG = 0
+
+		}
 	}
 	else
 	{
 #if DEBUG == 0
-		Serial.println("ERROR SETTING VALUE");
+		Serial.println("ERROR SETTING VALUE TO X Y =");
+		Serial.print(x );
+		Serial.print(" ");
+		Serial.println(y);
 #endif // DEBUG = 0
 
 	}

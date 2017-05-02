@@ -112,6 +112,9 @@ menuLoop()
 				else
 				{
 				choise = 1;
+#if DEBUG == 0
+				Serial.println("NO CORRECT AMOUNT OF BOATS ");
+#endif // DEBUG =
 				}
 			}
 			else
@@ -123,6 +126,9 @@ menuLoop()
 				else
 				{
 					choise = 1;
+#if DEBUG == 0
+					Serial.println("NO CORRECT AMOUNT OF BOATS ");
+#endif // DEBUG =
 				}
 			}
 			break;
@@ -162,9 +168,32 @@ menuLoop()
 				}
 				//_grid-> TO DO
 				bool b = false;
+#if DEBUG == 0
+				switch (btyp)
+				{
+				case Boats::Type::LONG:
+					Serial.println("printing long");
+					break;
+				case Boats::Type::MED:
+					Serial.println("printing med");
+					break;
+				case Boats::Type::SHORT:
+					Serial.println("printing shotr");
+					break;
+				default:
+					Serial.println("TRYING TO ADD UNKNOWN TYPE");
+					break;
+				}
+#endif // DEBUG =
 				do
 				{
 				_coo.coordLoop(x,y);				// does as long as position is valid and HAS NO BACK BUTTON
+#if DEBUG == 0
+				Serial.println("coord loop said X , Y = ");
+				Serial.print(x);
+				Serial.print(" ");
+				Serial.println(y);
+#endif // DEBUG =
 				} while (!_boatChecker.isValid(x,y,btyp,vectype));				
 				//_boatChecker.placeBoat(btyp, vectype); place boat if valid
 				}
@@ -221,10 +250,6 @@ menuLoop()
 					{
 					choise = 2;
 					}
-				}
-				else
-				{
-					choise = 1;
 				}
 				break;
 			}

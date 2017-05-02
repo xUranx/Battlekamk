@@ -4,9 +4,9 @@
 //#define buttonPin2  3/*                    MUOKKAA TÄTÄ           */
 //#define buttonPin3  4/*********************************************/
 #define DEBUG 0
-#define MAXLONG 2 //max values are amount values
-#define MAXMED 3
-#define MAXSHORT 4
+#define MAXLONG 1 //max values are amount values
+#define MAXMED 2
+#define MAXSHORT 3
 #define LONG_LEN 4 //len values are lenght values
 #define SHORT_LEN 2
 #define MED_LEN 3
@@ -19,7 +19,7 @@
 #define SCREENWIDHT 320
 #define CIRCLERADIUS 10
 #define BOXWIDHT 20
-#define BOXHEIGHT 15
+#define BOXHEIGHT 16
 #define PLAYER 1 //muuta pelaajaa kun vaihat yksikköä
 #define LED 13 //muuta tätä
 #define analogPin A0 // muuta näitä
