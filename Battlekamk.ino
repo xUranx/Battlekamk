@@ -39,7 +39,15 @@ void loop()
 		_grid.normalize();
 #if DEBUG == 0
 		Serial.println("Game loop started");
-		//Game *games = new Game();
+		Game *games = new Game(&LCD,_grid,&_stick);
+		if (state == 0)
+		{
+		games->gameloop(States::PVP);
+		}
+		else
+		{
+		games->gameloop(States::AI);
+		}
 #endif // DEBUG = 0
 	// go to game loop
 	}

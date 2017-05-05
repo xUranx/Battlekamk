@@ -8,7 +8,10 @@ enum class States
 {
 	Player_One, Player_Two, AI,PVP
 };
-
+enum class AIState
+{
+	Searching,Shot_No_Dir,UP,DOWN,LEFT,RIGHT
+};
 class Game
 {
 public:
@@ -20,5 +23,11 @@ private:
 	Grid _grid;
 	Joystick *_stick;
 	bool _turn;
+	void aiMove(int &x, int &y);
+	AIState _ai;
+	int lastAIx;
+	int lastAIy;
+	void setupAI();
+	int (*_aiGrid)[10][10];
 };
 
