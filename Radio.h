@@ -6,12 +6,14 @@
 class Radio
 {
 public:
-	static void radioSetup();
-	static bool listenRadio(int &x, int &y);
-	static void sendRadio(const int x,const int y);
+	Radio();
+	~Radio();
+	void radioSetup();
+	bool listenRadio(int &x, int &y);
+	void sendRadio(const int x,const int y);
 private:
-	static void emptyArray();
-	static uint8_t data[32];
-	static RF24 radio;
+	void emptyArray();
+	uint8_t data[32];
+	RF24 *radio;
 };
 

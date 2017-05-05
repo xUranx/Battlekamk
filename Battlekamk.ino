@@ -7,6 +7,7 @@
 #include "Pictures.h"// do we need?
 #include "PrintHex.h"// do we need?
 #include "Grid.h"
+#include "Game.h"
 Joystick _stick;
 S1D13700 LCD;
 PrintHex hexx;
@@ -38,6 +39,7 @@ void loop()
 		_grid.normalize();
 #if DEBUG == 0
 		Serial.println("Game loop started");
+		//Game *games = new Game();
 #endif // DEBUG = 0
 	// go to game loop
 	}

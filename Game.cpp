@@ -3,10 +3,9 @@
 #include "Coordinates.h"
 #include "Radio.h"
 #include "Joystick.h"
-#include "Grid.h"
-Game::Game(S1D13700 *handler, Grid *grid, Joystick *stick, States gametype): _handler(handler),_grid(grid),_stick(stick),_gameType(gametype)
+Game::Game(S1D13700 *handler, Grid grid, Joystick *stick): _handler(handler),_grid(grid),_stick(stick)
 {
-	Radio::radioSetup();
+	//Radio::radioSetup();
 	if (PLAYER == 1)
 	{
 		_turn = true;
@@ -23,7 +22,7 @@ Game::~Game()
 {
 }
 void Game::
-gameloop()
+gameloop(States gametype)
 {
 	Coordinates coo;
 	coo.init(_handler, _stick);
@@ -38,12 +37,12 @@ gameloop()
 			{
 			coo.coordLoop(x, y);
 
-			} while (_grid->chekValue(x,y) == Grid::Node::RESERVED);
-			_grid->setValue(x, y, Grid::Node::SHOT);
-			Radio::sendRadio(x, y);
+			} while (_grid.chekValue(x,y) == Grid::Node::RESERVED);
+			_grid.setValue(x, y, Grid::Node::SHOT);
+			//Radio::sendRadio(x, y);
 			int hit = 0;
 			int irrelevant = 0;
-			Radio::listenRadio(hit,irrelevant);
+			//Radio::listenRadio(hit,irrelevant);
 #ifdef DEBUG = 0
 			Serial.print("Hit and irrelevant was ");
 			Serial.print(hit);
@@ -62,7 +61,7 @@ gameloop()
 
 		}
 
-	} while (!_grid->checkVictory());
+	} while (!_grid.checkVictory());
 /*
 kumman vuoro?
 ota kohde

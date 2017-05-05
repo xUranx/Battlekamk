@@ -4,28 +4,35 @@
 
 
 
-RF24 Radio::radio(40, 53);
+Radio::Radio()
+{
+	radio = new RF24(40, 53);
+}
+Radio::~Radio()
+{
+	delete radio;
+}
 
 void Radio::radioSetup()
 {
 	byte pipes[][6] = { "1Node", "5Node" }; //use nodes 1Node -> 6Node
 
 	pinMode(LED, OUTPUT);
-	radio.begin();
-	radio.openWritingPipe(pipes[0]);
-	radio.openReadingPipe(1, pipes[1]);
-	radio.startListening();
-	radio.printDetails();
+	radio->begin();
+	radio->openWritingPipe(pipes[0]);
+	radio->openReadingPipe(1, pipes[1]);
+	radio->startListening();
+	radio->printDetails();
 }
 bool Radio::
 listenRadio(int &x,int &y)
 {
-	radio.startListening();
+	radio->startListening();
 	
 		do
 		{
-			radio.read(&data, sizeof(data)); //lukee radion
-			radio.stopListening();
+			radio->read(&data, sizeof(data)); //lukee radion
+			radio->stopListening();
 			digitalWrite(LED, HIGH);
 			delay(100);					// light up the LED for 100ms if it worked.
 			digitalWrite(LED, LOW);
@@ -33,7 +40,7 @@ listenRadio(int &x,int &y)
 			x = data[0];
 			y = data[1];
 			emptyArray();
-		} while (!radio.available());	//tekee niin kauan kuin saa järkeviä lukuja
+		} while (!radio->available());	//tekee niin kauan kuin saa järkeviä lukuja
 #if DEBUG == 0
 	Serial.write("got answer: ");
 	Serial.write(x);
@@ -41,7 +48,7 @@ listenRadio(int &x,int &y)
 #endif // DEBUG = 0
 
 
-	radio.stopListening();
+	radio->stopListening();
 	unsigned long started_waiting_at = millis();
 
 	bool timeout = false;
@@ -49,7 +56,7 @@ listenRadio(int &x,int &y)
 	{
 		if (millis() - started_waiting_at > 250)
 			timeout = true;
-			radio.write(&data, sizeof(data));
+			radio->write(&data, sizeof(data));
 	}
 }
 void Radio::
@@ -62,13 +69,13 @@ sendRadio(const int x, const int y)
 #endif // DEBUG = 0
 	do
 	{
-	radio.stopListening();
+	radio->stopListening();
 	data[0] = x;
 	data[1] = y;
-	radio.write(&data, sizeof(data));
+	radio->write(&data, sizeof(data));
 	emptyArray();
-	radio.startListening();
-	} while (!radio.available());
+	radio->startListening();
+	} while (!radio->available());
 
 }
 void Radio::

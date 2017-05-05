@@ -1,6 +1,7 @@
 #pragma once
+#include "Grid.h"
+
 class S1D13700;
-class Grid;
 class Joystick;
 
 enum class States
@@ -11,14 +12,13 @@ enum class States
 class Game
 {
 public:
-	Game(S1D13700 *handler,Grid *grid,Joystick *stick,States gametype);
+	Game(S1D13700 *handler,Grid grid,Joystick *stick);
 	~Game();
-	void gameloop();
+	void gameloop(States gametype);
 private:
 	S1D13700 *_handler;
-	Grid	*_grid;
+	Grid _grid;
 	Joystick *_stick;
-	States _gameType;
 	bool _turn;
 };
 
