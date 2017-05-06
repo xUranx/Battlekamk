@@ -20,7 +20,7 @@ public:
 	void init(S1D13700 *handler, Joystick *stick);
 	void drawCoord();
 	void drawChar();
-	void drawShape(Shape shape, int x,int y);
+	void drawShape(Shape shape, int x,int y,int visible = 1);
 	void coordLoop(int &_x,int &_y);
 private:
 	void moveCursor(CursorDir _dir);

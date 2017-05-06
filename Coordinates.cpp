@@ -174,7 +174,7 @@ moveCursor(CursorDir _dir)
 
 }
 void Coordinates::
-drawShape(Shape shape, int x, int y)
+drawShape(Shape shape, int x, int y, int visible)
 {
 	if (x>0 && y>0 && x<11 && y<11)
 	{
@@ -185,10 +185,10 @@ drawShape(Shape shape, int x, int y)
 	switch (shape)
 	{
 	case Shape::Circle:
-		_handler->drawCircle(whereX,whereY,CIRCLERADIUS);
+		_handler->drawCircle(whereX,whereY,CIRCLERADIUS,visible);
 		break;
 	case Shape::Box:
-		_handler->drawBox(whereX +2,whereY+2,whereX+BOXWIDHT,whereY+BOXHEIGHT);
+		_handler->drawBox(whereX +2,whereY+2,whereX+BOXWIDHT,whereY+BOXHEIGHT,visible);
 		break;
 	default:
 #if DEBUG == 0

@@ -23,6 +23,10 @@
 #define PLAYER 1 //muuta pelaajaa kun vaihat yksikköä
 #define LED 13 //muuta tätä
 #define analogPin A0 // muuta näitä
+#define FREEAI 0
+#define BOATAI 1
+#define SHOTAI 2
+#define SHOT_AND_BOATAI 3
 
 class S1D13700;
 extern void fatalError(S1D13700 *_handler, char buff[]);

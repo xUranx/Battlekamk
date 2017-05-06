@@ -39,6 +39,7 @@ void loop()
 		_grid.normalize();
 #if DEBUG == 0
 		Serial.println("Game loop started");
+#endif // DEBUG = 0
 		Game *games = new Game(&LCD,_grid,&_stick);
 		if (state == 0)
 		{
@@ -48,16 +49,8 @@ void loop()
 		{
 		games->gameloop(States::AI);
 		}
-#endif // DEBUG = 0
-	// go to game loop
 	}
-	/*if (_stick.Button())
-	{
-		LCD.textGoTo(20, 20);
-		char buf[] = { "test" };
-		LCD.writeText(buf);
-		delay(2000);
-	}*/
+
 	
 }
 

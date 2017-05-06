@@ -4,7 +4,7 @@ class Grid
 public:
 	enum class Node
 	{
-		FREE, BOAT , RESERVED, SHOT
+		FREE, BOAT , RESERVED, SHOT,SHOT_AND_BOAT 
 	};
 	Grid::Grid();
 	Node chekValue(int x, int y);
