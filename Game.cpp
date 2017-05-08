@@ -78,6 +78,28 @@ gameloop(States gametype)
 					coo.drawShape(Shape::Box, x, y, 0);
 					(*_aiGrid)[y - 1][x - 1] = FREEAI;
 					_turn = true;
+					bool winCheck = true;
+					for (int y = 0; y < 10; y++)
+					{
+						for (int x = 0; x < 10; x++)
+						{
+							if((*_aiGrid)[y][x] == BOATAI || (*_aiGrid)[y][x] == SHOT_AND_BOATAI)
+							{
+								winCheck = false;
+							}
+
+						}
+						if (winCheck)
+						{
+#if DEBUG == 0
+							Serial.print("AYYYY YOU WON ");
+
+#endif // DEBUG = 0
+							break;
+						}
+
+					}
+
 					// totea häviäminen
 				}
 				else
@@ -105,7 +127,7 @@ gameloop(States gametype)
 				{
 					_turn = false;
 					_grid.setValue(x, y, Grid::Node::FREE);
-					// UNDRAW BOX AND BOOM BOOM
+					coo.drawShape(Shape::Box, x, y,0);
 					if (_grid.checkVictory())
 					{
 						radio.sendRadio(1, 1);
