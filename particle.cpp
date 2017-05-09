@@ -1,5 +1,6 @@
 #include "particle.h"
 #include "ParticleValues.h"
+#include "Arduino.h"
 
 
 particle::particle(S1D13700 *handler):_handler(handler),_xSector(320/11),_ySector(240/11),_xSpawn(5),_ySpawn(5)
@@ -22,6 +23,6 @@ void particle::Explode(int x,int y)
 	{
 
 
-		_delay_ms(UPTADERATE);
+		delay(UPTADERATE);
 	}
 }
