@@ -14,7 +14,7 @@ void Boats::init(Grid *grid)
 
 bool Boats::checkAmount()
 {
-	if (_longs + 1 == MAXLONG && _mediums +1 == MAXMED && _shorts +1== MAXSHORT)
+	if (_longs == MAXLONG && _mediums == MAXMED && _shorts == MAXSHORT)
 	{
 		return true;
 	}

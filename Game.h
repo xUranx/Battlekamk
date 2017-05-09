@@ -34,11 +34,11 @@ private:
 	S1D13700 *_handler;
 	Grid _grid;
 	Joystick *_stick;
-	bool _turn;
-	void aiMove(int &x, int &y);
-	void setupAI();
-	int (*_aiGrid)[10][10];
-	AI _AI;
-	void checkIsDestroyed(int x,int y);
+	//bool _turn;
+	//void aiMove(int &x, int &y);
+	//void setupAI();
+	//int (*_aiGrid)[10][10];
+	//AI _AI;
+	//void checkIsDestroyed(int x,int y);
 };
 
