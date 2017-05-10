@@ -21,10 +21,13 @@ init(S1D13700 *handler, Joystick *stick)
 	_stick = stick;
 }
 void Coordinates::
-drawCoord()
+drawCoord(int clear)
 {
+	if (clear == 0)
+	{
 	_handler->clearGraphic();
 	_handler->clearText();
+	}
 	PrintHex pr;
 	pr.Print(grid,0,0);
 	/*this->moveCursor(CursorDir::_DEFAULT);

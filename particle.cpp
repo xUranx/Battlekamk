@@ -17,8 +17,8 @@ void particle::Explode(int x,int y)
 	x -= 1;
 	y -= 1;
 
-	int xpoint = x * _xSector + _xSpawn + 20;
-	int ypoint = y * _ySector + _ySpawn + 20;
+	int xpoint = x * _xSector + _xSpawn + 35;
+	int ypoint = y * _ySector + _ySpawn + 30;
 	for (int i = 0; i < 100; i++)
 	{
 		do
@@ -34,7 +34,7 @@ void particle::Explode(int x,int y)
 	}
 
 	int vertailu = 0;
-	for (int i = 0; i < LIFETIME; i++)
+	for (int i = 0; i < LIFETIME-20; i++)
 	{
 		vertailu++;
 		for (int amount = 0; amount < 100; amount++)
@@ -79,28 +79,37 @@ void particle::Explode(int x,int y)
 			//delay(UPTADERATE);
 		}
 	}
+	for (int  i = 0; i < 100; i++)
+	{
+		_handler->setPixel(arvot[i].prevx, arvot[i].prevy, 0);
+		_handler->setPixel(arvot[i].prevx + 1, arvot[i].prevy + 1, 0);
+		_handler->setPixel(arvot[i].prevx - 1, arvot[i].prevy - 1, 0);
+		_handler->setPixel(arvot[i].prevx - 1, arvot[i].prevy, 0);
+		_handler->setPixel(arvot[i].prevx + 1, arvot[i].prevy, 0);
+		_handler->setPixel(arvot[i].prevx, arvot[i].prevy + 1, 0);
+	}
 }
 void particle::
 rain()
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 150; i++)
 	{
 		do
 		{
 			arvot[i].prevx = random(1,319);
 			arvot[i].prevy = 5;
-			arvot[i].x = random(-3, 4);
-			arvot[i].y = random(1, 4);
-			arvot[i].spawnPoint = random(5, 20);
+			arvot[i].x = random(-1, 2);
+			arvot[i].y = random(3, 6);
+			arvot[i].spawnPoint = random(5, 30);
 			//Serial.println(arvot[i].x);
 			//Serial.println(arvot[i].y);
 		} while (arvot[i].x == 0 && arvot[i].y == 0);
 	}
 	int vertailu;
-	for (int i = 0; i < LIFETIME; i++)
+	for (int i = 0; i < LIFETIME + 20; i++)
 	{
 		vertailu++;
-		for (int amount = 0; amount < 100; amount++)
+		for (int amount = 0; amount < 150; amount++)
 		{
 			if (/*arvot[amount].prevx > 10 && arvot[amount].prevx < 300 && arvot[amount].prevy > 4 && */arvot[amount].prevy < 230)
 			{
@@ -140,10 +149,21 @@ rain()
 					_handler->setPixel(arvot[amount].prevx + 1, arvot[amount].prevy, 1);
 					_handler->setPixel(arvot[amount].prevx, arvot[amount].prevy + 1, 1);
 
+
+
 				}
 			}
 			//delay(UPTADERATE);
 		}
+	}
+	for (int i = 0; i < 100; i++)
+	{
+		_handler->setPixel(arvot[i].prevx, arvot[i].prevy, 0);
+		_handler->setPixel(arvot[i].prevx + 1, arvot[i].prevy + 1, 0);
+		_handler->setPixel(arvot[i].prevx - 1, arvot[i].prevy - 1, 0);
+		_handler->setPixel(arvot[i].prevx - 1, arvot[i].prevy, 0);
+		_handler->setPixel(arvot[i].prevx + 1, arvot[i].prevy, 0);
+		_handler->setPixel(arvot[i].prevx, arvot[i].prevy + 1, 0);
 	}
 }
 

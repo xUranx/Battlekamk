@@ -31,6 +31,8 @@ int freeRam()
 
 void loop() 
 {
+	PrintHex k;
+	k.Print(STPIC,0,0);
 	particle p(&LCD);
 	//Serial.println("raining");
 	p.rain();

@@ -54,6 +54,7 @@ gameloop(States gametype)
 		}
 	}
 	particle p(_handler);
+	int loop = 0;
 	for (;;)
 	{
 		int x = 0;
@@ -76,12 +77,32 @@ gameloop(States gametype)
 #if DEBUG == 0
 		Serial.println("GET TO COVER!!!");
 #endif // DEBUG = 0
+		_grid.setValue(x, y, Grid::Node::FREE);
 		coo.drawShape(Shape::Box, x, y, 0);
+
 		p.Explode(x, y);
 		if (_grid.checkVictory())
 		{
 			break;
 		}
+		if (loop % 2 == 0)
+		{
+			coo.drawCoord(1);
+		}
+		else
+		{
+			for (int testy = 0; testy < 10; testy++)
+			{
+				for (int testx = 0; testx < 10; testx++)
+				{
+					if (_grid.chekValue(testx + 1, testy + 1) == Grid::Node::BOAT || _grid.chekValue(testx + 1, testy + 1) == Grid::Node::SHOT_AND_BOAT)
+					{
+						coo.drawShape(Shape::Box, testx + 1, testy + 1);
+					}
+				}
+			}
+		}
+		loop++;
 	}
 }
 //			_grid.setValue(x, y, Grid::Node::SHOT);

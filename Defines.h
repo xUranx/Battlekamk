@@ -3,7 +3,7 @@
 //#define buttonPin1  2/*********************************************/
 //#define buttonPin2  3/*                    MUOKKAA TÄTÄ           */
 //#define buttonPin3  4/*********************************************/
-#define DEBUG 0
+#define DEBUG 1 // 0
 #define MAXLONG 1 //max values are amount values
 #define MAXMED 2
 #define MAXSHORT 3

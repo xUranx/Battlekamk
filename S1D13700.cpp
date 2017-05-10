@@ -48,7 +48,7 @@ POSSIBILITY OF SUCH DAMAGE.
 /*Constructor, set pin markers to their default values */
 S1D13700::S1D13700(void)
 {
-		this->pins.d0 = 22;
+	this->pins.d0 = 22;
     this->pins.d1 = 23;
     this->pins.d2 = 24;
     this->pins.d3 = 25;
@@ -56,11 +56,11 @@ S1D13700::S1D13700(void)
     this->pins.d5 = 27;
     this->pins.d6 = 28;
     this->pins.d7 = 29;
-    this->pins.a0 = 30;
-    this->pins.wr = 31;
-    this->pins.rd = 32;
-    this->pins.cs = 33;
-    this->pins.rst = 34;
+    this->pins.a0 = 19;
+    this->pins.wr = 20;
+    this->pins.rd = 21;
+    this->pins.cs = 46;
+    this->pins.rst = 47;
 }
 
 /* This function is specified inline for speed reasons*/

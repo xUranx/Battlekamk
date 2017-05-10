@@ -16,7 +16,7 @@ public:
 	void Explode(int x, int y);
 	void rain();
 private:
-	Pvalues arvot[100];
+	Pvalues arvot[150];
 	S1D13700 *_handler;
 	int _xSector;
 	int _ySector;

@@ -18,7 +18,7 @@ public:
 	Coordinates();
 	~Coordinates();
 	void init(S1D13700 *handler, Joystick *stick);
-	void drawCoord();
+	void drawCoord(int clear = 0);
 	void drawChar();
 	void drawShape(Shape shape, int x,int y,int visible = 1);
 	void coordLoop(int &_x,int &_y);
