@@ -76,7 +76,12 @@ gameloop(States gametype)
 #if DEBUG == 0
 		Serial.println("GET TO COVER!!!");
 #endif // DEBUG = 0
+		coo.drawShape(Shape::Box, x, y, 0);
 		p.Explode(x, y);
+		if (_grid.checkVictory())
+		{
+			break;
+		}
 	}
 }
 //			_grid.setValue(x, y, Grid::Node::SHOT);

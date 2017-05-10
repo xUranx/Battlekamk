@@ -14,6 +14,7 @@ public:
 	particle(S1D13700 *handler);
 	~particle();
 	void Explode(int x, int y);
+	void rain();
 private:
 	Pvalues arvot[100];
 	S1D13700 *_handler;

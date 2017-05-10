@@ -31,12 +31,15 @@ int freeRam()
 
 void loop() 
 {
+	particle p(&LCD);
+	//Serial.println("raining");
+	p.rain();
 	Joystick _stick;
 	Grid _grid;	//this runs constantly in memory
 #if DEBUG == 0
 	int mem = freeRam();
-	particle p(&LCD);
-	p.Explode(5, 5);
+	//particle p(&LCD);
+	//p.Explode(5, 5);
 	Serial.print("CURREN MEMORY ");
 
 	Serial.println(mem);
